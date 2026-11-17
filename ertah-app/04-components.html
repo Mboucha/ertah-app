@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1440" />
+<title>Ertah DS — Components</title>
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Cairo', sans-serif; background:#F8F9FA; color:#212529; direction:rtl; }
+  .page { width:1440px; min-height:100vh; background:#fff; }
+
+  /* ── COVER ── */
+  .cover {
+    width:100%; height:160px;
+    background:linear-gradient(135deg, #1A5C28 0%, #2F9E44 60%, #74C27A 100%);
+    display:flex; align-items:center; justify-content:space-between; padding:0 64px;
+  }
+  .cover-tag { font-size:11px; font-weight:600; letter-spacing:2px; color:rgba(255,255,255,0.55); text-transform:uppercase; margin-bottom:4px; }
+  .cover-title { font-size:36px; font-weight:900; color:#fff; }
+  .cover-sub { font-size:15px; color:rgba(255,255,255,0.7); }
+  .cover-logo { font-size:56px; font-weight:900; color:rgba(255,255,255,0.12); }
+
+  /* ── LAYOUT ── */
+  .section { padding:64px 64px 0; }
+  .section-label { font-size:11px; font-weight:700; letter-spacing:2.5px; color:#2F9E44; text-transform:uppercase; margin-bottom:8px; }
+  .section-title { font-size:24px; font-weight:700; color:#212529; margin-bottom:6px; }
+  .section-desc { font-size:14px; color:#6C757D; line-height:1.6; margin-bottom:40px; }
+  .divider { height:1px; background:#E9ECEF; margin:48px 64px 0; }
+  .spacer { height:64px; }
+
+  /* ── COMPONENT CANVAS ── */
+  .canvas { background:#F8F9FA; border-radius:16px; padding:40px; margin-bottom:32px; }
+  .canvas.dark { background:#212529; }
+  .canvas-label { font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#ADB5BD; margin-bottom:24px; display:flex; align-items:center; gap:8px; }
+  .canvas-label::after { content:''; flex:1; height:1px; background:rgba(0,0,0,0.08); }
+  .canvas.dark .canvas-label { color:#6C757D; }
+  .canvas.dark .canvas-label::after { background:rgba(255,255,255,0.08); }
+
+  /* ── BUTTONS ── */
+  .btn-row { display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-bottom:16px; }
+  .btn { font-family:'Cairo',sans-serif; font-weight:600; border:none; cursor:pointer; display:inline-flex; align-items:center; gap:8px; transition:all 0.15s; }
+  /* variants */
+  .btn-primary { background:#0071CE; color:#fff; }
+  .btn-primary:hover { background:#005BA5; }
+  .btn-secondary { background:#763CBC; color:#fff; }
+  .btn-accent { background:#FF5D36; color:#fff; }
+  .btn-outlined { background:transparent; color:#0071CE; border:1.5px solid #0071CE; }
+  .btn-ghost { background:transparent; color:#0071CE; }
+  .btn-ghost:hover { background:#E6F2FF; }
+  .btn-danger { background:#E03131; color:#fff; }
+  .btn-success { background:#2F9E44; color:#fff; }
+  .btn-disabled { background:#E9ECEF; color:#ADB5BD; cursor:not-allowed; }
+  /* sizes */
+  .btn-sm { font-size:12px; padding:6px 14px; border-radius:8px; line-height:16px; }
+  .btn-md { font-size:14px; padding:10px 20px; border-radius:12px; line-height:18px; }
+  .btn-lg { font-size:16px; padding:14px 28px; border-radius:12px; line-height:20px; }
+  .btn-full { width:100%; justify-content:center; }
+  .btn-icon-only { padding:10px; border-radius:10px; }
+
+  /* ── INPUTS ── */
+  .input-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:16px; }
+  .field { display:flex; flex-direction:column; gap:6px; }
+  .field-label { font-size:13px; font-weight:600; color:#212529; }
+  .field-hint { font-size:11px; color:#6C757D; }
+  .field-error-text { font-size:11px; color:#E03131; }
+  .input { font-family:'Cairo',sans-serif; font-size:14px; padding:11px 14px; border-radius:12px; outline:none; width:100%; background:#fff; transition:all 0.15s; }
+  .input-default { border:1.5px solid #DEE2E6; color:#212529; }
+  .input-default::placeholder { color:#ADB5BD; }
+  .input-default:focus { border-color:#0071CE; box-shadow:0 0 0 3px rgba(0,113,206,0.12); }
+  .input-filled { border:1.5px solid #DEE2E6; background:#F8F9FA; color:#212529; }
+  .input-error { border:1.5px solid #E03131; background:#FFFAFA; color:#212529; }
+  .input-success { border:1.5px solid #2F9E44; background:#FAFFF9; color:#212529; }
+  .input-disabled { border:1.5px solid #E9ECEF; background:#F8F9FA; color:#ADB5BD; cursor:not-allowed; }
+  .input-with-icon { padding-right:40px; }
+  .input-wrap { position:relative; }
+  .input-icon { position:absolute; right:12px; top:50%; transform:translateY(-50%); color:#6C757D; font-size:16px; pointer-events:none; }
+  .textarea { font-family:'Cairo',sans-serif; font-size:14px; padding:12px 14px; border-radius:12px; border:1.5px solid #DEE2E6; outline:none; width:100%; resize:vertical; min-height:80px; color:#212529; }
+
+  /* ── BADGES / TAGS ── */
+  .badge-row { display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:16px; }
+  .badge { display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight:700; padding:4px 10px; border-radius:9999px; letter-spacing:0.3px; }
+  .badge-blue { background:#E6F2FF; color:#005BA5; }
+  .badge-purple { background:#F2EAF9; color:#5E3096; }
+  .badge-orange { background:#FFF0EC; color:#CC4A2B; }
+  .badge-success { background:#D3F9D8; color:#1A5C28; }
+  .badge-warning { background:#FFF3BF; color:#7A5000; }
+  .badge-error { background:#FFE3E3; color:#7A1515; }
+  .badge-neutral { background:#F1F3F5; color:#495057; }
+  .badge-lg { font-size:13px; padding:6px 14px; }
+  .badge-dot { width:6px; height:6px; border-radius:50%; background:currentColor; display:inline-block; }
+
+  /* ── STATUS PILLS ── */
+  .status-row { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:16px; }
+  .status-pill { display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:600; padding:6px 12px; border-radius:8px; }
+
+  /* ── CARDS ── */
+  .card-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-bottom:24px; }
+  .card { background:#fff; border-radius:16px; box-shadow:0 4px 8px rgba(0,0,0,0.08); overflow:hidden; }
+  .card-header { padding:20px 20px 0; display:flex; justify-content:space-between; align-items:flex-start; }
+  .card-body { padding:16px 20px 20px; }
+  .card-title { font-size:16px; font-weight:700; color:#212529; margin-bottom:4px; }
+  .card-subtitle { font-size:12px; color:#6C757D; }
+  .card-meta { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+  .card-footer { border-top:1px solid #F1F3F5; padding:12px 20px; display:flex; gap:8px; justify-content:flex-end; }
+  .card-icon { width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
+  .card-divider { height:1px; background:#F1F3F5; margin:12px 0; }
+  .info-row { display:flex; justify-content:space-between; align-items:center; padding:6px 0; }
+  .info-label { font-size:12px; color:#6C757D; }
+  .info-value { font-size:12px; font-weight:600; color:#212529; }
+
+  /* ── SERVICE REQUEST CARD (domain-specific) ── */
+  .req-card { background:#fff; border-radius:16px; box-shadow:0 4px 8px rgba(0,0,0,0.07); margin-bottom:16px; overflow:hidden; }
+  .req-card-top { padding:16px 20px; display:flex; gap:14px; align-items:flex-start; }
+  .req-card-icon { width:48px; height:48px; border-radius:14px; background:#E6F2FF; display:flex; align-items:center; justify-content:center; font-size:24px; flex-shrink:0; }
+  .req-card-info { flex:1; }
+  .req-card-title { font-size:15px; font-weight:700; color:#212529; margin-bottom:2px; }
+  .req-card-id { font-size:11px; color:#6C757D; font-family:monospace; }
+  .req-card-status { flex-shrink:0; }
+  .req-card-body { padding:0 20px 16px; }
+  .req-card-footer { border-top:1px solid #F1F3F5; padding:12px 20px; display:flex; justify-content:space-between; align-items:center; }
+  .req-card-date { font-size:11px; color:#ADB5BD; }
+  .req-progress { height:4px; background:#E9ECEF; border-radius:2px; margin:12px 0 8px; overflow:hidden; }
+  .req-progress-fill { height:100%; border-radius:2px; background:linear-gradient(90deg,#0071CE,#4DA3FF); }
+
+  /* ── LIST ITEMS ── */
+  .list { border-radius:12px; overflow:hidden; border:1px solid #E9ECEF; margin-bottom:16px; }
+  .list-item { display:flex; align-items:center; gap:14px; padding:14px 16px; border-bottom:1px solid #F1F3F5; background:#fff; }
+  .list-item:last-child { border-bottom:none; }
+  .list-item-icon { width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+  .list-item-content { flex:1; }
+  .list-item-title { font-size:14px; font-weight:600; color:#212529; }
+  .list-item-sub { font-size:12px; color:#6C757D; margin-top:2px; }
+  .list-item-trailing { font-size:12px; color:#ADB5BD; flex-shrink:0; }
+  .list-chevron { color:#CED4DA; font-size:14px; }
+
+  /* ── NAVIGATION ── */
+  .tab-bar { background:#fff; border-radius:16px; box-shadow:0 4px 16px rgba(0,0,0,0.1); padding:8px 12px; display:flex; gap:0; margin-bottom:20px; }
+  .tab-item { flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; padding:8px 4px; border-radius:10px; cursor:pointer; position:relative; }
+  .tab-item.active { background:#E6F2FF; }
+  .tab-icon { font-size:22px; }
+  .tab-label { font-size:10px; font-weight:600; color:#ADB5BD; }
+  .tab-item.active .tab-label { color:#0071CE; }
+  .tab-badge { position:absolute; top:4px; right:12px; width:16px; height:16px; background:#E03131; border-radius:50%; font-size:9px; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; }
+
+  /* header */
+  .app-header { background:#fff; border-radius:16px; box-shadow:0 2px 8px rgba(0,0,0,0.06); padding:16px 20px; display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; }
+  .app-header-title { font-size:18px; font-weight:700; color:#212529; }
+  .app-header-actions { display:flex; gap:8px; }
+  .icon-btn { width:40px; height:40px; border-radius:10px; background:#F8F9FA; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:18px; }
+
+  /* ── ALERTS ── */
+  .alert { border-radius:12px; padding:14px 16px; display:flex; gap:12px; align-items:flex-start; margin-bottom:12px; }
+  .alert-icon { font-size:18px; flex-shrink:0; margin-top:1px; }
+  .alert-content { flex:1; }
+  .alert-title { font-size:13px; font-weight:700; margin-bottom:3px; }
+  .alert-desc { font-size:12px; line-height:1.6; }
+  .alert-success { background:#D3F9D8; border-right:3px solid #2F9E44; }
+  .alert-success .alert-title, .alert-success .alert-desc { color:#1A5C28; }
+  .alert-warning { background:#FFF3BF; border-right:3px solid #F59F00; }
+  .alert-warning .alert-title, .alert-warning .alert-desc { color:#7A5000; }
+  .alert-error { background:#FFE3E3; border-right:3px solid #E03131; }
+  .alert-error .alert-title, .alert-error .alert-desc { color:#7A1515; }
+  .alert-info { background:#E6F2FF; border-right:3px solid #0071CE; }
+  .alert-info .alert-title, .alert-info .alert-desc { color:#002C52; }
+
+  /* ── EMPTY STATE ── */
+  .empty-state { display:flex; flex-direction:column; align-items:center; justify-content:center; padding:60px 40px; text-align:center; background:#F8F9FA; border-radius:16px; margin-bottom:24px; }
+  .empty-icon { font-size:64px; margin-bottom:16px; opacity:0.6; }
+  .empty-title { font-size:18px; font-weight:700; color:#495057; margin-bottom:8px; }
+  .empty-desc { font-size:14px; color:#ADB5BD; line-height:1.6; max-width:280px; margin-bottom:24px; }
+
+  /* ── LOADING ── */
+  .skeleton { background:linear-gradient(90deg,#E9ECEF 25%,#F1F3F5 50%,#E9ECEF 75%); background-size:200% 100%; border-radius:6px; animation:shimmer 1.5s infinite; }
+  @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+  .skeleton-card { background:#fff; border-radius:16px; padding:20px; box-shadow:0 2px 8px rgba(0,0,0,0.06); margin-bottom:12px; }
+
+  /* ── SELECT / DROPDOWN ── */
+  .select-wrap { position:relative; }
+  .select { font-family:'Cairo',sans-serif; font-size:14px; padding:11px 40px 11px 14px; border-radius:12px; border:1.5px solid #DEE2E6; width:100%; background:#fff; color:#212529; appearance:none; outline:none; }
+  .select-arrow { position:absolute; left:14px; top:50%; transform:translateY(-50%); color:#6C757D; pointer-events:none; font-size:12px; }
+
+  /* ── TOGGLE / SWITCH ── */
+  .toggle-row { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
+  .toggle { width:48px; height:26px; border-radius:13px; cursor:pointer; display:flex; align-items:center; padding:2px; transition:background 0.2s; flex-shrink:0; }
+  .toggle.on { background:#0071CE; justify-content:flex-end; }
+  .toggle.off { background:#CED4DA; justify-content:flex-start; }
+  .toggle-thumb { width:22px; height:22px; background:#fff; border-radius:50%; box-shadow:0 1px 3px rgba(0,0,0,0.15); }
+  .toggle-label { font-size:13px; font-weight:500; color:#212529; }
+
+  /* ── CHECKBOX ── */
+  .checkbox-row { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+  .checkbox { width:20px; height:20px; border-radius:5px; border:2px solid #CED4DA; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; }
+  .checkbox.checked { border-color:#0071CE; background:#0071CE; color:#fff; font-size:11px; }
+  .checkbox.indeterminate { border-color:#0071CE; background:#0071CE; color:#fff; font-size:11px; }
+  .checkbox-label { font-size:13px; color:#212529; }
+
+  /* ── RADIO ── */
+  .radio-row { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+  .radio { width:20px; height:20px; border-radius:50%; border:2px solid #CED4DA; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; }
+  .radio.checked { border-color:#0071CE; }
+  .radio-dot { width:10px; height:10px; border-radius:50%; background:#0071CE; }
+  .radio-label { font-size:13px; color:#212529; }
+
+  /* ── PROGRESS ── */
+  .progress-wrap { margin-bottom:16px; }
+  .progress-header { display:flex; justify-content:space-between; margin-bottom:6px; }
+  .progress-title { font-size:12px; font-weight:600; color:#495057; }
+  .progress-pct { font-size:12px; color:#6C757D; }
+  .progress-bar { height:8px; background:#E9ECEF; border-radius:4px; overflow:hidden; }
+  .progress-fill { height:100%; border-radius:4px; background:linear-gradient(90deg,#0071CE,#4DA3FF); transition:width 0.3s; }
+
+  /* ── CHIP ── */
+  .chip-row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
+  .chip { display:inline-flex; align-items:center; gap:6px; padding:6px 12px; border-radius:9999px; font-size:12px; font-weight:500; cursor:pointer; border:1.5px solid transparent; transition:all 0.15s; }
+  .chip-default { background:#F1F3F5; color:#495057; border-color:#E9ECEF; }
+  .chip-selected { background:#E6F2FF; color:#0071CE; border-color:#0071CE; }
+  .chip-close { font-size:14px; opacity:0.6; }
+
+  /* ── STEP INDICATOR ── */
+  .steps { display:flex; align-items:center; gap:0; margin-bottom:24px; }
+  .step { display:flex; align-items:center; gap:0; }
+  .step-circle { width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; flex-shrink:0; }
+  .step-circle.done { background:#0071CE; color:#fff; }
+  .step-circle.active { background:#E6F2FF; color:#0071CE; border:2px solid #0071CE; }
+  .step-circle.todo { background:#F1F3F5; color:#ADB5BD; }
+  .step-line { height:2px; flex:1; min-width:40px; }
+  .step-line.done { background:#0071CE; }
+  .step-line.todo { background:#E9ECEF; }
+  .step-meta { display:flex; flex-direction:column; gap:2px; align-items:center; }
+  .step-label { font-size:10px; color:#6C757D; margin-top:4px; text-align:center; max-width:80px; }
+
+  /* ── AVATAR ── */
+  .avatar-row { display:flex; gap:12px; align-items:flex-end; flex-wrap:wrap; margin-bottom:16px; }
+  .avatar { border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; color:#fff; flex-shrink:0; }
+  .avatar-sm { width:32px; height:32px; font-size:12px; }
+  .avatar-md { width:40px; height:40px; font-size:14px; }
+  .avatar-lg { width:52px; height:52px; font-size:18px; }
+  .avatar-xl { width:64px; height:64px; font-size:22px; }
+  .avatar-blue { background:linear-gradient(135deg,#0071CE,#4DA3FF); }
+  .avatar-purple { background:linear-gradient(135deg,#763CBC,#A778DB); }
+  .avatar-orange { background:linear-gradient(135deg,#FF5D36,#FF9074); }
+  .avatar-success { background:linear-gradient(135deg,#2F9E44,#74C27A); }
+  .avatar-group { display:flex; }
+  .avatar-group .avatar { border:2px solid #fff; margin-left:-10px; }
+  .avatar-group .avatar:first-child { margin-left:0; }
+  .avatar-count { background:#F1F3F5; color:#6C757D; width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; border:2px solid #fff; margin-left:-10px; }
+
+  /* ── TOOLTIP ── */
+  .tooltip-demo { position:relative; display:inline-block; margin-bottom:48px; }
+  .tooltip-box { position:absolute; bottom:calc(100% + 8px); right:50%; transform:translateX(50%); background:#212529; color:#fff; font-size:11px; padding:6px 10px; border-radius:6px; white-space:nowrap; z-index:10; }
+  .tooltip-box::after { content:''; position:absolute; top:100%; right:50%; transform:translateX(50%); border:5px solid transparent; border-top-color:#212529; }
+
+  /* section tag sub-header */
+  .sub-label { font-size:11px; font-weight:700; letter-spacing:1px; color:#ADB5BD; text-transform:uppercase; margin-bottom:14px; margin-top:28px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div>
+      <div class="cover-tag">Design System — 04</div>
+      <div class="cover-title">ارتح · Ertah</div>
+      <div class="cover-sub">Component Library — مكتبة المكونات</div>
+    </div>
+    <div class="cover-logo">⬡</div>
+  </div>
+
+  <!-- BUTTONS -->
+  <div class="section">
+    <div class="section-label">01 — Buttons</div>
+    <div class="section-title">الأزرار</div>
+    <div class="section-desc">منظومة أزرار شاملة — متعددة الحجوم والحالات والأنواع</div>
+
+    <div class="canvas">
+      <div class="canvas-label">Variants — أنواع الأزرار</div>
+      <div class="btn-row">
+        <button class="btn btn-primary btn-lg">تقديم الطلب</button>
+        <button class="btn btn-secondary btn-lg">عرض التفاصيل</button>
+        <button class="btn btn-accent btn-lg">إجراء عاجل</button>
+        <button class="btn btn-outlined btn-lg">الإلغاء</button>
+        <button class="btn btn-ghost btn-lg">رابط نصي</button>
+        <button class="btn btn-danger btn-lg">حذف الطلب</button>
+        <button class="btn btn-success btn-lg">تأكيد القبول</button>
+      </div>
+      <div class="sub-label">Sizes — الأحجام</div>
+      <div class="btn-row">
+        <button class="btn btn-primary btn-sm">صغير</button>
+        <button class="btn btn-primary btn-md">متوسط</button>
+        <button class="btn btn-primary btn-lg">كبير</button>
+        <button class="btn btn-primary btn-lg" style="border-radius:9999px;">حبة</button>
+      </div>
+      <div class="sub-label">States — الحالات</div>
+      <div class="btn-row">
+        <button class="btn btn-primary btn-md">عادي</button>
+        <button class="btn btn-primary btn-md" style="background:#005BA5;">تمرير</button>
+        <button class="btn btn-primary btn-md" style="background:#00437C;">ضغط</button>
+        <button class="btn btn-disabled btn-md" disabled>معطّل</button>
+        <button class="btn btn-primary btn-md" style="gap:12px;">⟳ جارٍ التحميل</button>
+      </div>
+      <div class="sub-label">Icons — مع أيقونات</div>
+      <div class="btn-row">
+        <button class="btn btn-primary btn-md">＋ طلب جديد</button>
+        <button class="btn btn-outlined btn-md">⬆ رفع مستند</button>
+        <button class="btn btn-ghost btn-md">🔍 بحث متقدم</button>
+        <button class="btn btn-primary btn-icon-only btn-md">＋</button>
+        <button class="btn btn-outlined btn-icon-only btn-md">⋯</button>
+      </div>
+      <div class="sub-label">Full Width — عرض كامل</div>
+      <div style="max-width:400px;">
+        <button class="btn btn-primary btn-lg btn-full" style="margin-bottom:12px;">تسجيل الدخول</button>
+        <button class="btn btn-outlined btn-lg btn-full">إنشاء حساب جديد</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- INPUTS -->
+  <div class="section">
+    <div class="section-label">02 — Form Controls</div>
+    <div class="section-title">عناصر النماذج</div>
+    <div class="section-desc">حقول إدخال شاملة تدعم جميع الحالات والأنواع</div>
+
+    <div class="canvas">
+      <div class="canvas-label">Text Inputs — حقول النص</div>
+      <div class="input-grid">
+        <div class="field">
+          <div class="field-label">رقم الهوية الوطنية</div>
+          <div class="input-wrap">
+            <input class="input input-default" placeholder="أدخل رقم الهوية" />
+            <span class="input-icon">👤</span>
+          </div>
+          <div class="field-hint">10 أرقام بدون مسافات</div>
+        </div>
+        <div class="field">
+          <div class="field-label">رقم الجوال</div>
+          <div class="input-wrap">
+            <input class="input input-filled" value="0512345678" />
+            <span class="input-icon">📱</span>
+          </div>
+          <div class="field-hint">يبدأ بـ 05</div>
+        </div>
+        <div class="field">
+          <div class="field-label" style="color:#E03131;">رقم السجل التجاري</div>
+          <div class="input-wrap">
+            <input class="input input-error" value="123" />
+            <span class="input-icon" style="color:#E03131;">⚠</span>
+          </div>
+          <div class="field-error-text">يجب أن يكون 10 أرقام</div>
+        </div>
+        <div class="field">
+          <div class="field-label" style="color:#2F9E44;">البريد الإلكتروني</div>
+          <div class="input-wrap">
+            <input class="input input-success" value="workshop@ertah.sa" />
+            <span class="input-icon" style="color:#2F9E44;">✓</span>
+          </div>
+          <div class="field-hint" style="color:#2F9E44;">صحيح ✓</div>
+        </div>
+        <div class="field">
+          <div class="field-label" style="color:#ADB5BD;">اسم الورشة (معطّل)</div>
+          <input class="input input-disabled" value="ورشة الإخلاص للسيارات" disabled />
+        </div>
+        <div class="field">
+          <div class="field-label">ملاحظات إضافية</div>
+          <textarea class="textarea" placeholder="أضف أي ملاحظات أو تعليقات..."></textarea>
+        </div>
+      </div>
+
+      <div class="sub-label">Select & Dropdown — القوائم المنسدلة</div>
+      <div class="input-grid">
+        <div class="field">
+          <div class="field-label">نوع الخدمة</div>
+          <div class="select-wrap">
+            <select class="select">
+              <option>فحص دوري</option>
+              <option>صيانة المحرك</option>
+              <option>تجديد الترخيص</option>
+            </select>
+            <span class="select-arrow">▾</span>
+          </div>
+        </div>
+        <div class="field">
+          <div class="field-label">المنطقة</div>
+          <div class="select-wrap">
+            <select class="select">
+              <option>الرياض</option>
+              <option>جدة</option>
+              <option>الدمام</option>
+            </select>
+            <span class="select-arrow">▾</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sub-label">Toggle, Checkbox & Radio — المفاتيح والخيارات</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;">
+        <div>
+          <div class="toggle-row"><div class="toggle on"><div class="toggle-thumb"></div></div><span class="toggle-label">تفعيل الإشعارات</span></div>
+          <div class="toggle-row"><div class="toggle off"><div class="toggle-thumb"></div></div><span class="toggle-label">الوضع الداكن</span></div>
+          <div class="toggle-row"><div class="toggle on"><div class="toggle-thumb"></div></div><span class="toggle-label">تلقي رسائل SMS</span></div>
+        </div>
+        <div>
+          <div class="checkbox-row"><div class="checkbox checked">✓</div><span class="checkbox-label">قبلت الشروط والأحكام</span></div>
+          <div class="checkbox-row"><div class="checkbox"></div><span class="checkbox-label">الاشتراك في النشرة البريدية</span></div>
+          <div class="checkbox-row"><div class="checkbox indeterminate">−</div><span class="checkbox-label">تحديد الكل</span></div>
+        </div>
+        <div>
+          <div class="radio-row"><div class="radio checked"><div class="radio-dot"></div></div><span class="radio-label">طلب جديد</span></div>
+          <div class="radio-row"><div class="radio"></div><span class="radio-label">تجديد طلب سابق</span></div>
+          <div class="radio-row"><div class="radio"></div><span class="radio-label">استفسار فقط</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- BADGES & STATUS -->
+  <div class="section">
+    <div class="section-label">03 — Badges & Status</div>
+    <div class="section-title">الشارات وحالات الطلبات</div>
+
+    <div class="canvas">
+      <div class="canvas-label">Badges — الشارات</div>
+      <div class="badge-row">
+        <span class="badge badge-blue"><span class="badge-dot"></span>قيد المراجعة</span>
+        <span class="badge badge-purple">حكومي</span>
+        <span class="badge badge-orange"><span class="badge-dot"></span>طارئ</span>
+        <span class="badge badge-success"><span class="badge-dot"></span>مكتمل</span>
+        <span class="badge badge-warning"><span class="badge-dot"></span>معلّق</span>
+        <span class="badge badge-error"><span class="badge-dot"></span>مرفوض</span>
+        <span class="badge badge-neutral">أرشيف</span>
+      </div>
+      <div class="badge-row">
+        <span class="badge badge-blue badge-lg">فحص دوري</span>
+        <span class="badge badge-success badge-lg">مدفوع</span>
+        <span class="badge badge-error badge-lg">متأخر</span>
+        <span class="badge badge-neutral badge-lg">٢٣</span>
+      </div>
+
+      <div class="sub-label">Order Status Pills — حالات طلبات الخدمة</div>
+      <div class="status-row">
+        <div class="status-pill" style="background:#E6F2FF;color:#005BA5;">🔵 مقدّم</div>
+        <div class="status-pill" style="background:#FFF3BF;color:#7A5000;">🟡 قيد المراجعة</div>
+        <div class="status-pill" style="background:#F2EAF9;color:#5E3096;">🟣 مجدوَل</div>
+        <div class="status-pill" style="background:#D3F9D8;color:#1A5C28;">🟢 مكتمل</div>
+        <div class="status-pill" style="background:#FFE3E3;color:#7A1515;">🔴 مرفوض</div>
+        <div class="status-pill" style="background:#F1F3F5;color:#6C757D;">⚪ مُلغى</div>
+      </div>
+
+      <div class="sub-label">Filter Chips — شرائح التصفية</div>
+      <div class="chip-row">
+        <div class="chip chip-selected">الكل ✕</div>
+        <div class="chip chip-default">الفحص الدوري</div>
+        <div class="chip chip-default">الصيانة</div>
+        <div class="chip chip-default">تجديد الرخصة</div>
+        <div class="chip chip-default">الطارئة</div>
+        <div class="chip chip-default">المكتملة</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- CARDS -->
+  <div class="section">
+    <div class="section-label">04 — Cards</div>
+    <div class="section-title">البطاقات</div>
+
+    <div class="canvas">
+      <div class="canvas-label">Service Request Cards — بطاقات طلبات الخدمة</div>
+      <div class="card-grid">
+        <!-- Request Card 1 -->
+        <div class="req-card">
+          <div class="req-card-top">
+            <div class="req-card-icon">🔧</div>
+            <div class="req-card-info">
+              <div class="req-card-title">فحص دوري — هيونداي إليانترا</div>
+              <div class="req-card-id">REQ-20241205-0042</div>
+            </div>
+            <div class="req-card-status"><span class="badge badge-warning"><span class="badge-dot"></span>قيد المراجعة</span></div>
+          </div>
+          <div class="req-card-body">
+            <div class="req-progress"><div class="req-progress-fill" style="width:40%;"></div></div>
+            <div style="font-size:11px;color:#6C757D;display:flex;justify-content:space-between;">
+              <span>٢ من ٥ خطوات</span><span>٤٠٪</span>
+            </div>
+          </div>
+          <div class="req-card-footer">
+            <span class="req-card-date">منذ ٣ ساعات · ٥ ديس ٢٠٢٤</span>
+            <button class="btn btn-ghost btn-sm" style="color:#0071CE;padding:4px 10px;">عرض ←</button>
+          </div>
+        </div>
+        <!-- Request Card 2 -->
+        <div class="req-card">
+          <div class="req-card-top">
+            <div class="req-card-icon" style="background:#D3F9D8;">📋</div>
+            <div class="req-card-info">
+              <div class="req-card-title">تجديد رخصة التشغيل</div>
+              <div class="req-card-id">REQ-20241204-0028</div>
+            </div>
+            <div class="req-card-status"><span class="badge badge-success"><span class="badge-dot"></span>مكتمل</span></div>
+          </div>
+          <div class="req-card-body">
+            <div class="req-progress"><div class="req-progress-fill" style="width:100%;background:linear-gradient(90deg,#2F9E44,#74C27A);"></div></div>
+            <div style="font-size:11px;color:#2F9E44;display:flex;justify-content:space-between;">
+              <span>٥ من ٥ خطوات</span><span>١٠٠٪ ✓</span>
+            </div>
+          </div>
+          <div class="req-card-footer">
+            <span class="req-card-date">أمس · ٤ ديس ٢٠٢٤</span>
+            <button class="btn btn-ghost btn-sm" style="color:#2F9E44;padding:4px 10px;">تحميل ↓</button>
+          </div>
+        </div>
+        <!-- Request Card 3 -->
+        <div class="req-card" style="border:1.5px solid #FFE3E3;">
+          <div class="req-card-top">
+            <div class="req-card-icon" style="background:#FFE3E3;">🚨</div>
+            <div class="req-card-info">
+              <div class="req-card-title">معاينة مركبة — تويوتا لاند كروزر</div>
+              <div class="req-card-id">REQ-20241203-0015</div>
+            </div>
+            <div class="req-card-status"><span class="badge badge-error"><span class="badge-dot"></span>مرفوض</span></div>
+          </div>
+          <div class="req-card-body">
+            <div style="background:#FFE3E3;border-radius:8px;padding:8px 12px;font-size:12px;color:#7A1515;">
+              سبب الرفض: المستندات المرفقة ناقصة، يرجى إعادة الرفع
+            </div>
+          </div>
+          <div class="req-card-footer">
+            <span class="req-card-date">٣ ديس ٢٠٢٤</span>
+            <button class="btn btn-danger btn-sm">إعادة التقديم</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="sub-label">Info Cards — البطاقات المعلوماتية</div>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">إجمالي الطلبات</div>
+              <div class="card-subtitle">هذا الشهر</div>
+            </div>
+            <div class="card-icon" style="background:#E6F2FF;">📊</div>
+          </div>
+          <div class="card-body">
+            <div style="font-size:36px;font-weight:700;color:#0071CE;margin:8px 0;">٤٧</div>
+            <div style="font-size:12px;color:#2F9E44;">↑ ١٢٪ عن الشهر الماضي</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">معدل الإكمال</div>
+              <div class="card-subtitle">آخر ٣٠ يوم</div>
+            </div>
+            <div class="card-icon" style="background:#D3F9D8;">✓</div>
+          </div>
+          <div class="card-body">
+            <div style="font-size:36px;font-weight:700;color:#2F9E44;margin:8px 0;">٩٢٪</div>
+            <div class="progress-wrap" style="margin-bottom:0;">
+              <div class="progress-bar"><div class="progress-fill" style="width:92%;background:linear-gradient(90deg,#2F9E44,#74C27A);"></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">الورشة</div>
+              <div class="card-subtitle">ورشة الإخلاص للسيارات</div>
+            </div>
+            <div class="card-icon" style="background:#F2EAF9;">🏪</div>
+          </div>
+          <div class="card-body">
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">رقم السجل</span><span class="info-value" style="font-family:monospace;">4030123456</span></div>
+            <div class="info-row"><span class="info-label">المنطقة</span><span class="info-value">الرياض — حي العليا</span></div>
+            <div class="info-row"><span class="info-label">الحالة</span><span class="badge badge-success" style="font-size:10px;">نشطة</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- NAVIGATION -->
+  <div class="section">
+    <div class="section-label">05 — Navigation</div>
+    <div class="section-title">عناصر التنقل</div>
+
+    <div class="canvas">
+      <div class="canvas-label">App Header — رأس التطبيق</div>
+      <div class="app-header">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <button class="icon-btn">←</button>
+          <div class="app-header-title">طلبات الخدمة</div>
+        </div>
+        <div class="app-header-actions">
+          <button class="icon-btn">🔍</button>
+          <button class="icon-btn" style="position:relative;">
+            🔔
+            <div style="position:absolute;top:6px;right:6px;width:8px;height:8px;background:#E03131;border-radius:50%;border:1.5px solid #fff;"></div>
+          </button>
+          <button class="icon-btn">⋯</button>
+        </div>
+      </div>
+
+      <div class="canvas-label">Bottom Tab Bar — شريط التبويب السفلي</div>
+      <div style="max-width:400px;margin:0 auto;">
+        <div class="tab-bar">
+          <div class="tab-item active">
+            <div class="tab-icon">🏠</div>
+            <div class="tab-label" style="color:#0071CE;">الرئيسية</div>
+          </div>
+          <div class="tab-item" style="position:relative;">
+            <div class="tab-icon">📋</div>
+            <div class="tab-label">طلباتي</div>
+            <div class="tab-badge">٣</div>
+          </div>
+          <div class="tab-item">
+            <div class="tab-icon">🔔</div>
+            <div class="tab-label">الإشعارات</div>
+          </div>
+          <div class="tab-item">
+            <div class="tab-icon">👤</div>
+            <div class="tab-label">الحساب</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="canvas-label">Step Indicator — مؤشر الخطوات</div>
+      <div class="steps">
+        <div class="step-meta">
+          <div class="step-circle done">✓</div>
+          <div class="step-label">بيانات الورشة</div>
+        </div>
+        <div class="step-line done"></div>
+        <div class="step-meta">
+          <div class="step-circle done">✓</div>
+          <div class="step-label">معلومات المركبة</div>
+        </div>
+        <div class="step-line done"></div>
+        <div class="step-meta">
+          <div class="step-circle active">٣</div>
+          <div class="step-label" style="color:#0071CE;font-weight:600;">المستندات</div>
+        </div>
+        <div class="step-line todo"></div>
+        <div class="step-meta">
+          <div class="step-circle todo">٤</div>
+          <div class="step-label">المراجعة</div>
+        </div>
+        <div class="step-line todo"></div>
+        <div class="step-meta">
+          <div class="step-circle todo">٥</div>
+          <div class="step-label">التأكيد</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- LIST ITEMS -->
+  <div class="section">
+    <div class="section-label">06 — Lists</div>
+    <div class="section-title">القوائم</div>
+
+    <div class="canvas">
+      <div class="canvas-label">Standard List — القائمة القياسية</div>
+      <div class="list">
+        <div class="list-item">
+          <div class="list-item-icon" style="background:#E6F2FF;">🔧</div>
+          <div class="list-item-content">
+            <div class="list-item-title">فحص دوري</div>
+            <div class="list-item-sub">هيونداي إليانترا ٢٠٢٢ — رقم: REQ-042</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span class="badge badge-warning" style="font-size:10px;">قيد المراجعة</span>
+            <span class="list-chevron">‹</span>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="list-item-icon" style="background:#D3F9D8;">📋</div>
+          <div class="list-item-content">
+            <div class="list-item-title">تجديد رخصة التشغيل</div>
+            <div class="list-item-sub">ورشة الإخلاص — ٥ ديسمبر ٢٠٢٤</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span class="badge badge-success" style="font-size:10px;">مكتمل</span>
+            <span class="list-chevron">‹</span>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="list-item-icon" style="background:#F2EAF9;">📁</div>
+          <div class="list-item-content">
+            <div class="list-item-title">رفع وثيقة التأمين</div>
+            <div class="list-item-sub">تويوتا كامري — مطلوب اليوم</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span class="badge badge-error" style="font-size:10px;">عاجل</span>
+            <span class="list-chevron">‹</span>
+          </div>
+        </div>
+        <div class="list-item" style="background:#F8F9FA;">
+          <div class="list-item-icon" style="background:#E9ECEF;">📄</div>
+          <div class="list-item-content">
+            <div class="list-item-title" style="color:#ADB5BD;">طلب ملغى</div>
+            <div class="list-item-sub" style="color:#CED4DA;">كيا سبورتاج — ٢ ديسمبر ٢٠٢٤</div>
+          </div>
+          <span class="badge badge-neutral" style="font-size:10px;">مُلغى</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ALERTS -->
+  <div class="section">
+    <div class="section-label">07 — Alerts & Feedback</div>
+    <div class="section-title">التنبيهات والإشعارات</div>
+
+    <div class="canvas">
+      <div class="canvas-label">Alert Banners — لافتات التنبيه</div>
+      <div class="alert alert-success">
+        <span class="alert-icon">✅</span>
+        <div class="alert-content">
+          <div class="alert-title">تم تقديم الطلب بنجاح!</div>
+          <div class="alert-desc">رقم الطلب: REQ-20241205-0042. ستتلقى إشعاراً عند المراجعة.</div>
+        </div>
+      </div>
+      <div class="alert alert-warning">
+        <span class="alert-icon">⚠️</span>
+        <div class="alert-content">
+          <div class="alert-title">مستندات ناقصة</div>
+          <div class="alert-desc">يرجى رفع وثيقة التأمين قبل انتهاء الموعد المحدد في ٧ ديسمبر ٢٠٢٤.</div>
+        </div>
+      </div>
+      <div class="alert alert-error">
+        <span class="alert-icon">❌</span>
+        <div class="alert-content">
+          <div class="alert-title">فشل تحميل البيانات</div>
+          <div class="alert-desc">تعذّر الاتصال بالخادم. يرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى.</div>
+        </div>
+      </div>
+      <div class="alert alert-info">
+        <span class="alert-icon">ℹ️</span>
+        <div class="alert-content">
+          <div class="alert-title">تحديث جديد متاح</div>
+          <div class="alert-desc">الإصدار ٢.٣.١ يتضمن تحسينات في أداء التطبيق وإصلاح مشاكل معروفة.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- AVATARS & PROGRESS & EMPTY -->
+  <div class="section">
+    <div class="section-label">08 — Extras</div>
+    <div class="section-title">مكونات إضافية</div>
+
+    <div class="canvas">
+      <div class="canvas-label">Avatars — الصور الرمزية</div>
+      <div class="avatar-row">
+        <div class="avatar avatar-sm avatar-blue">م</div>
+        <div class="avatar avatar-md avatar-purple">أ</div>
+        <div class="avatar avatar-lg avatar-orange">س</div>
+        <div class="avatar avatar-xl avatar-success">ع</div>
+        <div style="width:1px;height:40px;background:#E9ECEF;margin:0 8px;"></div>
+        <div class="avatar-group">
+          <div class="avatar avatar-md avatar-blue">م</div>
+          <div class="avatar avatar-md avatar-purple">أ</div>
+          <div class="avatar avatar-md avatar-orange">س</div>
+          <div class="avatar-count">+٥</div>
+        </div>
+      </div>
+
+      <div class="canvas-label">Progress Bars — أشرطة التقدم</div>
+      <div style="display:flex;flex-direction:column;gap:16px;max-width:600px;">
+        <div class="progress-wrap"><div class="progress-header"><span class="progress-title">اكتمال الملف</span><span class="progress-pct">٧٥٪</span></div><div class="progress-bar"><div class="progress-fill" style="width:75%;"></div></div></div>
+        <div class="progress-wrap"><div class="progress-header"><span class="progress-title">معدل الإكمال</span><span class="progress-pct">٩٢٪</span></div><div class="progress-bar"><div class="progress-fill" style="width:92%;background:linear-gradient(90deg,#2F9E44,#74C27A);"></div></div></div>
+        <div class="progress-wrap"><div class="progress-header"><span class="progress-title">الطلبات المعلقة</span><span class="progress-pct">٣٠٪</span></div><div class="progress-bar"><div class="progress-fill" style="width:30%;background:linear-gradient(90deg,#F59F00,#FFCD6B);"></div></div></div>
+      </div>
+
+      <div class="canvas-label">Empty State — الحالة الفارغة</div>
+      <div class="empty-state">
+        <div class="empty-icon">📭</div>
+        <div class="empty-title">لا توجد طلبات بعد</div>
+        <div class="empty-desc">لم تقدّم أي طلبات حتى الآن. ابدأ بتقديم طلبك الأول للاستفادة من خدماتنا الحكومية.</div>
+        <button class="btn btn-primary btn-md">＋ تقديم طلب جديد</button>
+      </div>
+
+      <div class="canvas-label">Loading Skeleton — الهيكل العظمي للتحميل</div>
+      <div style="max-width:400px;">
+        <div class="skeleton-card">
+          <div style="display:flex;gap:12px;align-items:center;margin-bottom:16px;">
+            <div class="skeleton" style="width:48px;height:48px;border-radius:14px;flex-shrink:0;"></div>
+            <div style="flex:1;">
+              <div class="skeleton" style="height:14px;border-radius:4px;margin-bottom:8px;width:70%;"></div>
+              <div class="skeleton" style="height:11px;border-radius:4px;width:45%;"></div>
+            </div>
+          </div>
+          <div class="skeleton" style="height:8px;border-radius:4px;margin-bottom:8px;"></div>
+          <div class="skeleton" style="height:8px;border-radius:4px;width:60%;"></div>
+        </div>
+        <div class="skeleton-card">
+          <div style="display:flex;gap:12px;align-items:center;margin-bottom:16px;">
+            <div class="skeleton" style="width:48px;height:48px;border-radius:14px;flex-shrink:0;"></div>
+            <div style="flex:1;">
+              <div class="skeleton" style="height:14px;border-radius:4px;margin-bottom:8px;width:80%;"></div>
+              <div class="skeleton" style="height:11px;border-radius:4px;width:50%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+</div>
+</body>
+</html>

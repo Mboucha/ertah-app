@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1440" />
+<title>Ertah DS — Typography</title>
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Cairo', sans-serif; background:#F8F9FA; color:#212529; direction:rtl; }
+  .page { width:1440px; min-height:100vh; background:#fff; }
+
+  /* COVER */
+  .cover {
+    width:100%; height:160px;
+    background: linear-gradient(135deg, #180C26 0%, #472471 50%, #763CBC 100%);
+    display:flex; align-items:center; justify-content:space-between; padding:0 64px;
+  }
+  .cover-tag { font-size:11px; font-weight:600; letter-spacing:2px; color:rgba(255,255,255,0.5); text-transform:uppercase; margin-bottom:4px; }
+  .cover-title { font-size:36px; font-weight:900; color:#fff; }
+  .cover-sub { font-size:15px; color:rgba(255,255,255,0.65); }
+  .cover-logo { font-size:56px; font-weight:900; color:rgba(255,255,255,0.12); }
+
+  /* LAYOUT */
+  .section { padding:64px 64px 0; }
+  .section-label { font-size:11px; font-weight:700; letter-spacing:2.5px; color:#763CBC; text-transform:uppercase; margin-bottom:8px; }
+  .section-title { font-size:24px; font-weight:700; color:#212529; margin-bottom:6px; }
+  .section-desc { font-size:14px; color:#6C757D; line-height:1.6; margin-bottom:40px; }
+  .divider { height:1px; background:#E9ECEF; margin:48px 64px 0; }
+  .spacer { height:64px; }
+
+  /* FONT FAMILY SHOWCASE */
+  .font-family-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:24px; margin-bottom:48px; }
+  .font-card { background:#F8F9FA; border:1px solid #E9ECEF; border-radius:12px; padding:24px; }
+  .font-card-weight { font-family:'Cairo',sans-serif; font-size:48px; color:#212529; line-height:1; margin-bottom:16px; }
+  .font-card-name { font-size:12px; font-weight:700; letter-spacing:0.5px; color:#6C757D; margin-bottom:4px; text-transform:uppercase; }
+  .font-card-weight-num { font-size:12px; color:#ADB5BD; font-family:monospace; margin-bottom:12px; }
+  .font-card-sample { font-size:13px; color:#495057; line-height:1.6; }
+
+  /* TYPE SCALE */
+  .type-table { width:100%; border-collapse:collapse; margin-bottom:48px; }
+  .type-table thead tr { border-bottom:2px solid #E9ECEF; }
+  .type-table th { font-size:11px; font-weight:700; letter-spacing:1px; color:#ADB5BD; text-transform:uppercase; padding:12px 16px; text-align:right; }
+  .type-table tbody tr { border-bottom:1px solid #F1F3F5; transition:background 0.15s; }
+  .type-table tbody tr:hover { background:#F8F9FA; }
+  .type-table td { padding:20px 16px; vertical-align:middle; }
+  .type-token { font-size:11px; font-family:monospace; color:#763CBC; background:#F2EAF9; padding:3px 8px; border-radius:4px; }
+  .type-meta { display:flex; gap:16px; flex-wrap:wrap; }
+  .meta-pill { font-size:10px; font-family:monospace; background:#F1F3F5; color:#6C757D; padding:3px 8px; border-radius:4px; }
+  .meta-pill.bold { background:#E6F2FF; color:#0071CE; }
+
+  /* ARABIC SHOWCASE */
+  .ar-showcase { background: linear-gradient(135deg,#F8F9FA,#E6F2FF); border-radius:16px; padding:48px; margin-bottom:48px; }
+  .ar-item { margin-bottom:32px; border-bottom:1px solid rgba(0,71,206,0.1); padding-bottom:32px; display:flex; align-items:flex-start; gap:40px; }
+  .ar-item:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
+  .ar-item-label { min-width:180px; flex-shrink:0; }
+  .ar-item-label .token { font-size:11px; font-family:monospace; color:#0071CE; background:#E6F2FF; padding:3px 8px; border-radius:4px; display:inline-block; margin-bottom:6px; }
+  .ar-item-label .spec { font-size:11px; color:#ADB5BD; line-height:1.6; }
+  .ar-text { flex:1; color:#212529; }
+
+  /* RTL/LTR comparison */
+  .rtl-ltr-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:48px; }
+  .lang-card { border-radius:12px; border:1px solid #E9ECEF; overflow:hidden; }
+  .lang-card-header { padding:12px 20px; font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; display:flex; align-items:center; gap:8px; }
+  .lang-card-header.ar { background:#E6F2FF; color:#0071CE; direction:rtl; }
+  .lang-card-header.en { background:#F2EAF9; color:#763CBC; direction:ltr; }
+  .lang-card-body { padding:24px; }
+
+  /* USAGE GUIDELINES */
+  .guidelines-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-bottom:64px; }
+  .guideline-card { border-radius:12px; padding:20px; border:1px solid #E9ECEF; }
+  .guideline-card.do { border-color:#D3F9D8; background:#FAFFF9; }
+  .guideline-card.dont { border-color:#FFE3E3; background:#FFFAFA; }
+  .guideline-badge { font-size:10px; font-weight:800; letter-spacing:1px; text-transform:uppercase; margin-bottom:12px; }
+  .guideline-badge.do { color:#2F9E44; }
+  .guideline-badge.dont { color:#E03131; }
+  .guideline-content { font-size:13px; color:#495057; line-height:1.7; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div>
+      <div class="cover-tag">Design System — 02</div>
+      <div class="cover-title">ارتح · Ertah</div>
+      <div class="cover-sub">Typography System — منظومة الخطوط</div>
+    </div>
+    <div class="cover-logo">Aa</div>
+  </div>
+
+  <!-- FONT FAMILY -->
+  <div class="section">
+    <div class="section-label">01 — Font Family</div>
+    <div class="section-title">عائلة الخط</div>
+    <div class="section-desc">DIN Next LT Arabic — الخط الأساسي للتطبيق، يدعم العربية واللاتينية بشكل ممتاز ويتميز بالوضوح والحداثة في الشاشات الرقمية.</div>
+    <div class="font-family-grid">
+      <div class="font-card">
+        <div class="font-card-weight" style="font-weight:300">ارتح</div>
+        <div class="font-card-name">Light</div>
+        <div class="font-card-weight-num">DINNextLTArabic-Light · 300</div>
+        <div class="font-card-sample">نص توضيحي للخط الخفيف<br/>Sample text in light weight</div>
+      </div>
+      <div class="font-card">
+        <div class="font-card-weight" style="font-weight:400">ارتح</div>
+        <div class="font-card-name">Regular</div>
+        <div class="font-card-weight-num">DINNextLTArabic-Regular · 400</div>
+        <div class="font-card-sample">نص توضيحي للخط العادي<br/>Sample text in regular weight</div>
+      </div>
+      <div class="font-card">
+        <div class="font-card-weight" style="font-weight:600">ارتح</div>
+        <div class="font-card-name">Medium</div>
+        <div class="font-card-weight-num">DINNextLTArabic-Medium · 600</div>
+        <div class="font-card-sample">نص توضيحي للخط المتوسط<br/>Sample text in medium weight</div>
+      </div>
+      <div class="font-card">
+        <div class="font-card-weight" style="font-weight:700">ارتح</div>
+        <div class="font-card-name">Bold</div>
+        <div class="font-card-weight-num">DINNextLTArabic-Bold · 700</div>
+        <div class="font-card-sample">نص توضيحي للخط العريض<br/>Sample text in bold weight</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- TYPE SCALE TABLE -->
+  <div class="section">
+    <div class="section-label">02 — Type Scale</div>
+    <div class="section-title">سلم أحجام الخط</div>
+    <div class="section-desc">نظام متدرج منطقي لأحجام الخط — من العناوين الكبيرة إلى النصوص التوضيحية الصغيرة</div>
+
+    <table class="type-table">
+      <thead>
+        <tr>
+          <th>Token</th>
+          <th>المثال</th>
+          <th>المواصفات</th>
+          <th>الاستخدام</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Display -->
+        <tr>
+          <td><span class="type-token">display.xl</span></td>
+          <td><div style="font-size:40px;font-weight:700;line-height:52px;color:#212529;">خدمات الورش</div></td>
+          <td><div class="type-meta"><span class="meta-pill">40px</span><span class="meta-pill">52px LH</span><span class="meta-pill bold">Bold</span><span class="meta-pill">-0.5 LS</span></div></td>
+          <td style="font-size:13px;color:#6C757D;">شاشات البداية والسبلاش</td>
+        </tr>
+        <tr>
+          <td><span class="type-token">display.lg</span></td>
+          <td><div style="font-size:32px;font-weight:700;line-height:42px;color:#212529;">خدمات الورش</div></td>
+          <td><div class="type-meta"><span class="meta-pill">32px</span><span class="meta-pill">42px LH</span><span class="meta-pill bold">Bold</span><span class="meta-pill">-0.3 LS</span></div></td>
+          <td style="font-size:13px;color:#6C757D;">عناوين الأقسام الرئيسية</td>
+        </tr>
+        <tr>
+          <td><span class="type-token">display.md</span></td>
+          <td><div style="font-size:28px;font-weight:700;line-height:38px;color:#212529;">خدمات الورش</div></td>
+          <td><div class="type-meta"><span class="meta-pill">28px</span><span class="meta-pill">38px LH</span><span class="meta-pill bold">Bold</span><span class="meta-pill">-0.2 LS</span></div></td>
+          <td style="font-size:13px;color:#6C757D;">عناوين الصفحات الرئيسية</td>
+        </tr>
+        <!-- Heading -->
+        <tr>
+          <td><span class="type-token">heading.xl</span></td>
+          <td><div style="font-size:24px;font-weight:700;line-height:32px;color:#212529;">إدارة الطلبات</div></td>
+          <td><div class="type-meta"><span class="meta-pill">24px</span><span class="meta-pill">32px LH</span><span class="meta-pill bold">Bold</span><span class="meta-pill">-0.1 LS</span></div></td>
+          <td style="font-size:13px;color:#6C757D;">عناوين الصفحات الداخلية</td>
+        </tr>
+        <tr>
+          <td><span class="type-token">heading.lg</span></td>
+          <td><div style="font-size:20px;font-weight:700;line-height:28px;color:#212529;">تفاصيل الطلب</div></td>
+          <td><div class="type-meta"><span class="meta-pill">20px</span><span class="meta-pill">28px LH</span><span class="meta-pill bold">Bold</span></div></td>
+          <td style="font-size:13px;color:#6C757D;">عناوين البطاقات والأقسام</td>
+        </tr>
+        <tr>
+          <td><span class="type-token">heading.md</span></td>
+          <td><div style="font-size:18px;font-weight:600;line-height:26px;color:#212529;">معلومات المركبة</div></td>
+          <td><div class="type-meta"><span class="meta-pill">18px</span><span class="meta-pill">26px LH</span><span class="meta-pill bold">Medium</span></div></td>
+          <td style="font-size:13px;color:#6C757D;">عناوين النوافذ المنبثقة</td>
+        </tr>
+        <tr>
+          <td><span class="type-token">heading.sm</span></td>
+          <td><div style="font-size:16px;font-weight:600;line-height:24px;color:#212529;">رقم الطلب</div></td>
+          <td><div class="type-meta"><span class="meta-pill">16px</span><span class="meta-pill">24px LH</span><span class="meta-pill bold">Medium</span></div></td>
+          <td style="font-size:13px;color:#6C757D;">عناوين القوائم والعناصر</td>
+        </tr>
+        <!-- Body -->
+        <tr>
+          <td><span class="type-token">body.lg</span></td>
+          <td><div style="font-size:16px;font-weight:400;line-height:26px;color:#495057;">تم استلام طلبك وسيتم مراجعته من قبل الجهة المختصة</div></td>
+          <td><div class="type-meta"><span class="meta-pill">16px</span><span class="meta-pill">26px LH</span><span class="meta-pill">Regular</span></div></td>
+          <td style="font-size:13px;color:#6C757D;">نصوص المحتوى الرئيسية</td>
+        </tr>
+        <tr>
+          <td><span class="type-token">body.md</span></td>
+          <td><div style="font-size:14px;font-weight:400;line-height:22px;color:#495057;">تم استلام طلبك وسيتم مراجعته من قبل الجهة المختصة</div></td>
+          <td><div class="type-meta"><span class="meta-pill">14px</span><span class="meta-pill">22px LH</span><span class="meta-pill">Regular</span></div></td>
+          <td style="font-size:13px;color:#6C757D;">نصوص البطاقات والقوائم</td>
+        </tr>
+        <tr>
+          <td><span class="type-token">body.sm</span></td>
+          <td><div style="font-size:12px;font-weight:400;line-height:18px;color:#495057;">تم استلام طلبك وسيتم مراجعته من قبل الجهة المختصة</div></td>
+          <td><div class="type-meta"><span class="meta-pill">12px</span><span class="meta-pill">18px LH</span><span class="meta-pill">Regular</span></div></td>
+          <td style="font-size:13px;color:#6C757D;">نصوص المساعدة والتلميحات</td>
+        </tr>
+        <!-- Label -->
+        <tr>
+          <td><span class="type-token">label.lg</span></td>
+          <td><div style="font-size:16px;font-weight:600;line-height:20px;color:#212529;letter-spacing:0.1px;">إرسال الطلب</div></td>
+          <td><div class="type-meta"><span class="meta-pill">16px</span><span class="meta-pill">20px LH</span><span class="meta-pill bold">Medium</span><span class="meta-pill">0.1 LS</span></div></td>
+          <td style="font-size:13px;color:#6C757D;">أزرار الحجم الكبير</td>
+        </tr>
+        <tr>
+          <td><span class="type-token">label.md</span></td>
+          <td><div style="font-size:14px;font-weight:600;line-height:18px;color:#212529;letter-spacing:0.1px;">إرسال الطلب</div></td>
+          <td><div class="type-meta"><span class="meta-pill">14px</span><span class="meta-pill">18px LH</span><span class="meta-pill bold">Medium</span><span class="meta-pill">0.1 LS</span></div></td>
+          <td style="font-size:13px;color:#6C757D;">أزرار وتسميات الحقول</td>
+        </tr>
+        <tr>
+          <td><span class="type-token">label.sm</span></td>
+          <td><div style="font-size:12px;font-weight:600;line-height:16px;color:#212529;letter-spacing:0.2px;">حالة الطلب</div></td>
+          <td><div class="type-meta"><span class="meta-pill">12px</span><span class="meta-pill">16px LH</span><span class="meta-pill bold">Medium</span><span class="meta-pill">0.2 LS</span></div></td>
+          <td style="font-size:13px;color:#6C757D;">الشارات والعلامات الصغيرة</td>
+        </tr>
+        <!-- Caption -->
+        <tr>
+          <td><span class="type-token">caption.md</span></td>
+          <td><div style="font-size:11px;font-weight:400;line-height:16px;color:#6C757D;letter-spacing:0.2px;">منذ 3 ساعات · رقم: ORD-20241205</div></td>
+          <td><div class="type-meta"><span class="meta-pill">11px</span><span class="meta-pill">16px LH</span><span class="meta-pill">Regular</span><span class="meta-pill">0.2 LS</span></div></td>
+          <td style="font-size:13px;color:#6C757D;">التوقيت والبيانات الثانوية</td>
+        </tr>
+        <tr>
+          <td><span class="type-token">caption.sm</span></td>
+          <td><div style="font-size:10px;font-weight:400;line-height:14px;color:#ADB5BD;letter-spacing:0.3px;">منذ 3 ساعات · رقم: ORD-20241205</div></td>
+          <td><div class="type-meta"><span class="meta-pill">10px</span><span class="meta-pill">14px LH</span><span class="meta-pill">Regular</span><span class="meta-pill">0.3 LS</span></div></td>
+          <td style="font-size:13px;color:#6C757D;">نصوص التعليق والحقوق</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ARABIC SHOWCASE -->
+  <div class="section">
+    <div class="section-label">03 — Arabic Showcase</div>
+    <div class="section-title">عرض الخط العربي</div>
+    <div class="section-desc">عينات من النصوص الحقيقية للتطبيق في سياقها الكامل</div>
+    <div class="ar-showcase">
+      <div class="ar-item">
+        <div class="ar-item-label">
+          <div class="token">display.xl</div>
+          <div class="spec">40px · Bold · -0.5LS</div>
+        </div>
+        <div class="ar-text" style="font-size:40px;font-weight:700;line-height:1.3;letter-spacing:-0.5px;">مرحباً بك في ارتح</div>
+      </div>
+      <div class="ar-item">
+        <div class="ar-item-label">
+          <div class="token">heading.xl</div>
+          <div class="spec">24px · Bold · -0.1LS</div>
+        </div>
+        <div class="ar-text" style="font-size:24px;font-weight:700;line-height:1.4;letter-spacing:-0.1px;">طلبات الخدمة المعلقة (٤)</div>
+      </div>
+      <div class="ar-item">
+        <div class="ar-item-label">
+          <div class="token">body.lg</div>
+          <div class="spec">16px · Regular · 0LS</div>
+        </div>
+        <div class="ar-text" style="font-size:16px;font-weight:400;line-height:1.6;max-width:600px;">يتيح لك تطبيق ارتح إدارة طلبات خدمة المركبات بسهولة ويسر، والتواصل مع الجهات الحكومية المختصة بشكل مباشر وسريع.</div>
+      </div>
+      <div class="ar-item">
+        <div class="ar-item-label">
+          <div class="token">label.md</div>
+          <div class="spec">14px · Medium · 0.1LS</div>
+        </div>
+        <div class="ar-text" style="font-size:14px;font-weight:600;line-height:1.4;letter-spacing:0.1px;color:#0071CE;">تقديم طلب جديد ←</div>
+      </div>
+      <div class="ar-item">
+        <div class="ar-item-label">
+          <div class="token">caption.md</div>
+          <div class="spec">11px · Regular · 0.2LS</div>
+        </div>
+        <div class="ar-text" style="font-size:11px;font-weight:400;line-height:1.6;letter-spacing:0.2px;color:#6C757D;">آخر تحديث: الأربعاء ٥ ديسمبر ٢٠٢٤ · ١٠:٣٠ ص · رقم الطلب: REQ-20241205-0042</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- RTL / LTR -->
+  <div class="section">
+    <div class="section-label">04 — RTL / LTR</div>
+    <div class="section-title">دعم العربية واللاتينية</div>
+    <div class="section-desc">التطبيق يدعم الاتجاهين بالكامل</div>
+    <div class="rtl-ltr-grid">
+      <div class="lang-card">
+        <div class="lang-card-header ar">🇸🇦  العربية — RTL</div>
+        <div class="lang-card-body" dir="rtl" style="text-align:right;">
+          <div style="font-size:20px;font-weight:700;margin-bottom:8px;color:#212529;">إدارة ورشة السيارات</div>
+          <div style="font-size:14px;color:#6C757D;line-height:1.7;margin-bottom:16px;">تقديم طلبات الفحص والصيانة الدورية، متابعة حالة الطلبات، وإدارة سجلات المركبات بكل سهولة.</div>
+          <div style="display:flex;gap:8px;justify-content:flex-end;">
+            <div style="background:#0071CE;color:#fff;padding:8px 20px;border-radius:8px;font-size:14px;font-weight:600;">تقديم طلب</div>
+            <div style="border:1px solid #0071CE;color:#0071CE;padding:8px 20px;border-radius:8px;font-size:14px;font-weight:600;">عرض التفاصيل</div>
+          </div>
+        </div>
+      </div>
+      <div class="lang-card">
+        <div class="lang-card-header en">🇺🇸  English — LTR</div>
+        <div class="lang-card-body" dir="ltr" style="text-align:left;font-family:'Cairo',sans-serif;">
+          <div style="font-size:20px;font-weight:700;margin-bottom:8px;color:#212529;">Workshop Management</div>
+          <div style="font-size:14px;color:#6C757D;line-height:1.7;margin-bottom:16px;">Submit inspection and maintenance requests, track order status, and manage vehicle records with ease.</div>
+          <div style="display:flex;gap:8px;justify-content:flex-start;">
+            <div style="background:#0071CE;color:#fff;padding:8px 20px;border-radius:8px;font-size:14px;font-weight:600;">Submit Request</div>
+            <div style="border:1px solid #0071CE;color:#0071CE;padding:8px 20px;border-radius:8px;font-size:14px;font-weight:600;">View Details</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- GUIDELINES -->
+  <div class="section">
+    <div class="section-label">05 — Usage Guidelines</div>
+    <div class="section-title">إرشادات الاستخدام</div>
+    <div class="section-desc">قواعد استخدام الخط للحفاظ على الاتساق</div>
+    <div class="guidelines-grid">
+      <div class="guideline-card do">
+        <div class="guideline-badge do">✓ افعل</div>
+        <div class="guideline-content">استخدم <strong>heading.xl</strong> لعنوان الصفحة الرئيسي الوحيد في كل شاشة</div>
+      </div>
+      <div class="guideline-card dont">
+        <div class="guideline-badge dont">✕ لا تفعل</div>
+        <div class="guideline-content">لا تستخدم أكثر من عنوانين من نوع <strong>display</strong> في نفس الشاشة</div>
+      </div>
+      <div class="guideline-card do">
+        <div class="guideline-badge do">✓ افعل</div>
+        <div class="guideline-content">استخدم <strong>body.md</strong> للنصوص الطويلة وضمان قراءة مريحة</div>
+      </div>
+      <div class="guideline-card dont">
+        <div class="guideline-badge dont">✕ لا تفعل</div>
+        <div class="guideline-content">لا تضع نصاً أصغر من <strong>caption.sm (10px)</strong> لأسباب تتعلق بإمكانية الوصول</div>
+      </div>
+      <div class="guideline-card do">
+        <div class="guideline-badge do">✓ افعل</div>
+        <div class="guideline-content">استخدم <strong>label.md</strong> حصراً لنصوص الأزرار والحقول</div>
+      </div>
+      <div class="guideline-card dont">
+        <div class="guideline-badge dont">✕ لا تفعل</div>
+        <div class="guideline-content">لا تخلط بين أوزان الخط داخل نفس الجملة إلا للتأكيد المقصود</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+</div>
+</body>
+</html>

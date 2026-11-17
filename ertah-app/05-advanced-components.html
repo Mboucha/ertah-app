@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1440" />
+<title>Ertah DS — Advanced Components</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js"></script>
+<style>
+  *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Cairo',sans-serif; background:#F8F9FA; color:#212529; direction:rtl; }
+  .page { width:1440px; background:#fff; }
+
+  /* COVER */
+  .cover {
+    width:100%; height:160px;
+    background:linear-gradient(135deg,#001529 0%,#002C52 40%,#0071CE 80%,#763CBC 100%);
+    display:flex; align-items:center; justify-content:space-between; padding:0 64px;
+  }
+  .cover-tag { font-size:11px; font-weight:600; letter-spacing:2px; color:rgba(255,255,255,0.5); text-transform:uppercase; margin-bottom:4px; }
+  .cover-title { font-size:36px; font-weight:900; color:#fff; }
+  .cover-sub { font-size:15px; color:rgba(255,255,255,0.65); }
+  .cover-logo { font-size:56px; font-weight:900; color:rgba(255,255,255,0.1); letter-spacing:-2px; }
+
+  /* LAYOUT */
+  .section { padding:64px 64px 0; }
+  .section-label { font-size:11px; font-weight:700; letter-spacing:2.5px; color:#0071CE; text-transform:uppercase; margin-bottom:8px; }
+  .section-title { font-size:24px; font-weight:700; color:#212529; margin-bottom:6px; }
+  .section-desc { font-size:14px; color:#6C757D; line-height:1.6; margin-bottom:40px; }
+  .divider { height:1px; background:#E9ECEF; margin:64px 64px 0; }
+  .spacer { height:64px; }
+  .sub-label { font-size:11px; font-weight:700; letter-spacing:1.5px; color:#ADB5BD; text-transform:uppercase; margin-bottom:16px; margin-top:32px; }
+
+  /* CANVAS */
+  .canvas { background:#F8F9FA; border-radius:16px; padding:40px; margin-bottom:32px; }
+  .canvas.white { background:#fff; border:1px solid #E9ECEF; }
+  .canvas.dark { background:#212529; }
+  .canvas-label { font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#ADB5BD; margin-bottom:24px; display:flex; align-items:center; gap:12px; }
+  .canvas-label::after { content:''; flex:1; height:1px; background:rgba(0,0,0,0.07); }
+
+  /* ── TOGGLE & SELECTION ───────────────────────────────── */
+  .toggle-showcase { display:grid; grid-template-columns:repeat(3,1fr); gap:32px; margin-bottom:32px; }
+  .toggle-group { background:#fff; border:1px solid #E9ECEF; border-radius:12px; padding:24px; }
+  .toggle-group-title { font-size:12px; font-weight:700; color:#6C757D; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:20px; }
+
+  /* Switch */
+  .switch-row { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+  .track { display:flex; align-items:center; padding:3px; border-radius:14px; width:48px; height:28px; flex-shrink:0; }
+  .track.on  { background:#0071CE; justify-content:flex-end; }
+  .track.off { background:#CED4DA; justify-content:flex-start; }
+  .track.disabled { background:#E9ECEF; }
+  .thumb { width:22px; height:22px; background:#fff; border-radius:11px; box-shadow:0 1px 3px rgba(0,0,0,0.2); flex-shrink:0; }
+  .switch-label { font-size:13px; color:#212529; }
+
+  /* Checkbox */
+  .cb-row { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+  .cb-box { width:20px; height:20px; border-radius:4px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:11px; font-weight:800; }
+  .cb-unchecked { border:1.5px solid #CED4DA; background:#fff; }
+  .cb-checked   { border:1.5px solid #0071CE; background:#0071CE; color:#fff; }
+  .cb-indeterminate { border:1.5px solid #0071CE; background:#0071CE; color:#fff; }
+  .cb-disabled  { border:1.5px solid #E9ECEF; background:#E9ECEF; }
+  .cb-label { font-size:13px; color:#212529; }
+  .cb-label.disabled { color:#ADB5BD; }
+
+  /* Radio */
+  .rb-row { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+  .rb-outer { width:20px; height:20px; border-radius:10px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .rb-unchecked { border:1.5px solid #CED4DA; background:#fff; }
+  .rb-checked   { border:1.5px solid #0071CE; background:#fff; }
+  .rb-dot       { width:10px; height:10px; border-radius:5px; background:#0071CE; }
+  .rb-label { font-size:13px; color:#212529; }
+
+  /* Segmented */
+  .seg-track { background:#F1F3F5; border-radius:9999px; padding:3px; display:flex; height:44px; margin-bottom:16px; position:relative; }
+  .seg-active { background:#fff; border-radius:9999px; flex:1; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:600; color:#212529; box-shadow:0 1px 3px rgba(0,0,0,0.08); }
+  .seg-inactive { flex:1; display:flex; align-items:center; justify-content:center; font-size:14px; color:#6C757D; }
+
+  /* Chips */
+  .chip-row { display:flex; gap:8px; flex-wrap:wrap; }
+  .chip { display:inline-flex; align-items:center; gap:6px; padding:7px 14px; border-radius:9999px; font-size:13px; font-weight:500; border:1.5px solid; }
+  .chip-selected { border-color:#0071CE; background:#E6F2FF; color:#0071CE; }
+  .chip-default  { border-color:#DEE2E6; background:#fff; color:#6C757D; }
+
+  /* ── MODALS ──────────────────────────────────────────── */
+  .modal-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-bottom:32px; }
+  .modal-preview { background:#F8F9FA; border-radius:12px; overflow:hidden; position:relative; }
+  .modal-preview-label { position:absolute; top:12px; right:12px; font-size:10px; font-weight:700; letter-spacing:1px; color:#ADB5BD; text-transform:uppercase; }
+  .modal-overlay { background:rgba(0,0,0,0.5); display:flex; align-items:flex-end; min-height:340px; border-radius:12px; overflow:hidden; }
+  .modal-overlay.centered { align-items:center; justify-content:center; }
+  .sheet { background:#fff; border-radius:20px 20px 0 0; width:100%; padding:24px 20px 32px; }
+  .sheet-handle { width:32px; height:4px; background:#CED4DA; border-radius:2px; margin:0 auto 16px; }
+  .sheet-title { font-size:16px; font-weight:700; color:#212529; text-align:center; margin-bottom:4px; }
+  .sheet-sub { font-size:13px; color:#6C757D; text-align:center; margin-bottom:20px; }
+  .dialog { background:#fff; border-radius:20px; padding:28px 24px; margin:24px; width:calc(100% - 48px); }
+  .dialog-icon { width:56px; height:56px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:28px; margin:0 auto 16px; }
+  .dialog-title { font-size:18px; font-weight:700; color:#212529; text-align:center; margin-bottom:8px; }
+  .dialog-body  { font-size:13px; color:#6C757D; text-align:center; margin-bottom:24px; line-height:1.6; }
+  .dialog-actions { display:flex; gap:10px; }
+  .btn { font-family:'Cairo',sans-serif; font-size:14px; font-weight:600; border:none; border-radius:12px; padding:12px 20px; cursor:pointer; flex:1; text-align:center; }
+  .btn-primary { background:#0071CE; color:#fff; }
+  .btn-secondary { background:transparent; color:#212529; border:1.5px solid #DEE2E6; }
+  .btn-danger   { background:#E03131; color:#fff; }
+  .btn-success  { background:#2F9E44; color:#fff; }
+  .filter-chip-row { display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; }
+
+  /* ── DATA DISPLAY ───────────────────────────────────── */
+  .data-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:32px; }
+  .info-card { background:#fff; border:1px solid #E9ECEF; border-radius:12px; overflow:hidden; }
+  .info-card-header { padding:14px 16px; font-size:11px; font-weight:700; color:#6C757D; text-transform:uppercase; letter-spacing:0.5px; background:#F8F9FA; border-bottom:1px solid #E9ECEF; }
+  .data-row { display:flex; align-items:center; justify-content:space-between; padding:11px 16px; border-bottom:1px solid #F1F3F5; }
+  .data-row:last-child { border-bottom:none; }
+  .data-label { font-size:13px; color:#6C757D; }
+  .data-value { font-size:13px; font-weight:600; color:#212529; }
+  .data-value.mono { font-family:monospace; }
+  .data-copy { font-size:13px; color:#ADB5BD; margin-right:6px; }
+
+  /* Timeline */
+  .timeline { display:flex; flex-direction:column; gap:0; }
+  .tl-item { display:flex; gap:12px; }
+  .tl-left { display:flex; flex-direction:column; align-items:center; width:20px; }
+  .tl-dot { width:12px; height:12px; border-radius:6px; flex-shrink:0; margin-top:3px; }
+  .tl-dot.done    { background:#2F9E44; }
+  .tl-dot.active  { background:#0071CE; width:14px; height:14px; border-radius:7px; }
+  .tl-dot.pending { background:transparent; border:2px solid #CED4DA; }
+  .tl-line { flex:1; width:2px; background:#E9ECEF; margin:4px 0; min-height:20px; }
+  .tl-line.done { background:#2F9E44; }
+  .tl-content { flex:1; padding-bottom:20px; }
+  .tl-title { font-size:14px; font-weight:600; color:#212529; }
+  .tl-desc  { font-size:12px; color:#6C757D; margin-top:2px; }
+  .tl-time  { font-size:11px; color:#ADB5BD; margin-top:4px; }
+
+  /* Avatar */
+  .avatar-showcase { display:flex; gap:16px; align-items:flex-end; margin-bottom:24px; }
+  .av { border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; color:#fff; flex-shrink:0; }
+  .av-sm { width:32px; height:32px; font-size:11px; }
+  .av-md { width:40px; height:40px; font-size:14px; }
+  .av-lg { width:52px; height:52px; font-size:18px; }
+  .av-xl { width:64px; height:64px; font-size:22px; }
+  .av-blue   { background:linear-gradient(135deg,#0071CE,#4DA3FF); }
+  .av-purple { background:linear-gradient(135deg,#763CBC,#A778DB); }
+  .av-orange { background:linear-gradient(135deg,#FF5D36,#FF9074); }
+  .av-green  { background:linear-gradient(135deg,#2F9E44,#74C27A); }
+  .av-group  { display:flex; }
+  .av-group .av { border:2px solid #fff; margin-left:-10px; }
+  .av-group .av:first-child { margin-left:0; }
+  .av-count  { background:#F1F3F5; color:#6C757D; font-size:11px; font-weight:700; width:40px; height:40px; border-radius:20px; display:flex; align-items:center; justify-content:center; border:2px solid #fff; margin-left:-10px; }
+
+  /* Icon badges */
+  .iconbadge-row { display:flex; gap:16px; align-items:flex-end; margin-bottom:24px; }
+  .iconbadge { display:flex; flex-direction:column; align-items:center; gap:8px; }
+  .ib { border-radius:16px; display:flex; align-items:center; justify-content:center; }
+  .ib-sm { width:36px; height:36px; font-size:16px; }
+  .ib-md { width:48px; height:48px; font-size:22px; }
+  .ib-lg { width:60px; height:60px; font-size:28px; }
+  .ib-label { font-size:10px; color:#ADB5BD; font-family:monospace; }
+
+  /* ── NAVIGATION DETAIL ───────────────────────────────── */
+  .nav-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:32px; }
+
+  /* App header */
+  .app-header { background:#fff; border-radius:12px; border:1px solid #E9ECEF; overflow:hidden; }
+  .app-header-bar { height:56px; display:flex; align-items:center; justify-content:space-between; padding:0 12px; border-bottom:1px solid #E9ECEF; }
+  .app-header-title { font-size:17px; font-weight:700; color:#212529; }
+  .icon-btn { width:40px; height:40px; border-radius:10px; background:#F8F9FA; display:flex; align-items:center; justify-content:center; font-size:18px; }
+  .breadcrumb-bar { padding:8px 16px; display:flex; align-items:center; gap:6px; }
+  .bc-item { font-size:11px; color:#ADB5BD; }
+  .bc-item.active { color:#212529; font-weight:600; }
+  .bc-sep { font-size:11px; color:#ADB5BD; }
+
+  /* Drawer preview */
+  .drawer-preview { background:#212529; border-radius:12px; overflow:hidden; position:relative; height:380px; }
+  .drawer-overlay { position:absolute; inset:0; background:rgba(0,0,0,0.5); }
+  .drawer-panel { position:absolute; top:0; bottom:0; right:0; width:200px; background:#fff; }
+  .drawer-header { padding:28px 16px 16px; border-bottom:1px solid #E9ECEF; }
+  .drawer-logo { font-size:18px; font-weight:900; color:#0071CE; }
+  .drawer-sub { font-size:11px; color:#6C757D; margin-top:2px; }
+  .drawer-items { padding:8px; }
+  .drawer-item { display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:8px; margin-bottom:2px; }
+  .drawer-item.active { background:#E6F2FF; }
+  .drawer-item-icon { width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:14px; }
+  .drawer-item-label { font-size:13px; font-weight:500; }
+  .drawer-item.active .drawer-item-label { color:#0071CE; }
+
+  /* Tab bar detail */
+  .tab-bar-detail { background:#fff; border-radius:12px; border:1px solid #E9ECEF; overflow:hidden; }
+  .tab-bar-inner { display:flex; padding:8px 12px 16px; }
+  .tab-item { flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; padding:8px 4px; border-radius:10px; cursor:pointer; }
+  .tab-item.active { background:#E6F2FF; }
+  .tab-icon { font-size:22px; }
+  .tab-label { font-size:10px; font-weight:600; color:#ADB5BD; }
+  .tab-item.active .tab-label { color:#0071CE; }
+  .tab-active-line { width:24px; height:2px; background:#0071CE; border-radius:1px; }
+  .tab-badge-wrap { position:relative; }
+  .tab-badge { position:absolute; top:-4px; right:-6px; width:16px; height:16px; background:#E03131; border-radius:8px; font-size:9px; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; border:1.5px solid #fff; }
+
+  /* ── OTP ─────────────────────────────────────────────── */
+  .otp-boxes { display:flex; gap:10px; justify-content:center; margin-bottom:32px; }
+  .otp-box { width:52px; height:52px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:700; color:#212529; flex-shrink:0; }
+  .otp-filled  { border:1.5px solid #0071CE; background:#E6F2FF; }
+  .otp-focused { border:2px solid #0071CE; background:#fff; box-shadow:0 0 0 4px rgba(0,113,206,0.12); }
+  .otp-empty   { border:1.5px solid #DEE2E6; background:#fff; }
+  .otp-error   { border:1.5px solid #E03131; background:#FFFAFA; }
+
+  /* ── STEP INDICATOR ──────────────────────────────────── */
+  .steps { display:flex; align-items:flex-start; }
+  .step-meta { display:flex; flex-direction:column; align-items:center; gap:4px; }
+  .step-circle { width:32px; height:32px; border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; flex-shrink:0; }
+  .step-circle.done   { background:#0071CE; color:#fff; }
+  .step-circle.active { background:#E6F2FF; color:#0071CE; border:2px solid #0071CE; }
+  .step-circle.todo   { background:#F1F3F5; color:#ADB5BD; }
+  .step-label { font-size:10px; color:#6C757D; text-align:center; max-width:72px; }
+  .step-label.active { color:#0071CE; font-weight:600; }
+  .step-connector { height:2px; flex:1; min-width:32px; margin-top:15px; }
+  .step-connector.done { background:#0071CE; }
+  .step-connector.todo { background:#E9ECEF; }
+
+  /* ── TOAST / SNACKBAR ────────────────────────────────── */
+  .toast-stack { display:flex; flex-direction:column; gap:12px; margin-bottom:32px; }
+  .toast { display:flex; align-items:flex-start; gap:12px; padding:14px 16px; border-radius:12px; }
+  .toast-success { background:#fff; border-right:4px solid #2F9E44; box-shadow:0 4px 16px rgba(0,0,0,0.1); }
+  .toast-error   { background:#fff; border-right:4px solid #E03131; box-shadow:0 4px 16px rgba(0,0,0,0.1); }
+  .toast-warning { background:#fff; border-right:4px solid #F59F00; box-shadow:0 4px 16px rgba(0,0,0,0.1); }
+  .toast-info    { background:#fff; border-right:4px solid #0071CE; box-shadow:0 4px 16px rgba(0,0,0,0.1); }
+  .toast-icon { font-size:18px; flex-shrink:0; }
+  .toast-content { flex:1; }
+  .toast-title { font-size:13px; font-weight:700; color:#212529; margin-bottom:2px; }
+  .toast-msg   { font-size:12px; color:#6C757D; }
+  .toast-dismiss { font-size:14px; color:#ADB5BD; flex-shrink:0; }
+
+  /* ── INLINE ALERTS ───────────────────────────────────── */
+  .inline-alert { display:flex; align-items:flex-start; gap:10px; padding:12px 14px; border-radius:12px; margin-bottom:12px; }
+  .ia-success { background:#D3F9D8; border-right:3px solid #2F9E44; }
+  .ia-warning { background:#FFF3BF; border-right:3px solid #F59F00; }
+  .ia-error   { background:#FFE3E3; border-right:3px solid #E03131; }
+  .ia-info    { background:#E6F2FF; border-right:3px solid #0071CE; }
+  .ia-icon  { font-size:16px; flex-shrink:0; margin-top:1px; }
+  .ia-title { font-size:13px; font-weight:700; }
+  .ia-success .ia-title { color:#1A5C28; }
+  .ia-warning .ia-title { color:#7A5000; }
+  .ia-error   .ia-title { color:#7A1515; }
+  .ia-info    .ia-title { color:#002C52; }
+  .ia-desc  { font-size:12px; margin-top:3px; line-height:1.5; opacity:0.9; }
+  .ia-success .ia-desc { color:#1A5C28; }
+  .ia-warning .ia-desc { color:#7A5000; }
+  .ia-error   .ia-desc { color:#7A1515; }
+  .ia-info    .ia-desc { color:#002C52; }
+
+  /* ── SKELETON ────────────────────────────────────────── */
+  .skel { background:linear-gradient(90deg,#E9ECEF 25%,#F1F3F5 50%,#E9ECEF 75%); background-size:400% 100%; animation:shimmer 1.4s ease infinite; border-radius:6px; }
+  @keyframes shimmer { 0%{background-position:100% 0} 100%{background-position:-100% 0} }
+  .skel-card { background:#fff; border:1px solid #E9ECEF; border-radius:12px; padding:20px; margin-bottom:12px; }
+
+  /* ── PROGRESS ────────────────────────────────────────── */
+  .progress-wrap { margin-bottom:16px; }
+  .progress-header { display:flex; justify-content:space-between; margin-bottom:6px; }
+  .progress-title { font-size:12px; font-weight:600; color:#495057; }
+  .progress-pct { font-size:12px; color:#0071CE; font-weight:600; }
+  .progress-track { height:8px; background:#E9ECEF; border-radius:4px; overflow:hidden; }
+  .progress-fill  { height:100%; border-radius:4px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- COVER -->
+  <div class="cover">
+    <div>
+      <div class="cover-tag">Design System — 05</div>
+      <div class="cover-title">ارتح · Ertah</div>
+      <div class="cover-sub">Advanced Components — المكونات المتقدمة</div>
+    </div>
+    <div class="cover-logo">05</div>
+  </div>
+
+  <!-- ═══════════ TOGGLE & SELECTION ═══════════ -->
+  <div class="section">
+    <div class="section-label">01 — Toggle & Selection</div>
+    <div class="section-title">مكونات التبديل والاختيار</div>
+    <div class="section-desc">Switch · Checkbox · RadioButton · SegmentedControl · ChipGroup — مع دعم RTL كامل والوضع الداكن</div>
+
+    <div class="toggle-showcase">
+      <!-- SWITCH -->
+      <div class="toggle-group">
+        <div class="toggle-group-title">Switch — مفتاح التبديل</div>
+        <div class="switch-row">
+          <div class="track on"><div class="thumb"></div></div>
+          <span class="switch-label">تفعيل الإشعارات</span>
+        </div>
+        <div class="switch-row">
+          <div class="track off"><div class="thumb"></div></div>
+          <span class="switch-label">الوضع الداكن</span>
+        </div>
+        <div class="switch-row">
+          <div class="track on"><div class="thumb"></div></div>
+          <span class="switch-label">تلقي رسائل SMS</span>
+        </div>
+        <div class="switch-row">
+          <div class="track disabled"><div class="thumb" style="background:#E9ECEF;"></div></div>
+          <span class="switch-label" style="color:#ADB5BD;">معطّل</span>
+        </div>
+        <div style="margin-top:20px;padding-top:20px;border-top:1px solid #F1F3F5;">
+          <div style="font-size:11px;color:#ADB5BD;margin-bottom:12px;font-weight:600;">RTL — الإبهام يتحرك يساراً عند التشغيل</div>
+          <div class="switch-row" dir="rtl">
+            <div class="track on" style="flex-direction:row-reverse;"><div class="thumb"></div></div>
+            <span class="switch-label">تشغيل</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHECKBOX -->
+      <div class="toggle-group">
+        <div class="toggle-group-title">Checkbox — مربع التحديد</div>
+        <div class="cb-row"><div class="cb-box cb-checked">✓</div><span class="cb-label">قبلت الشروط والأحكام</span></div>
+        <div class="cb-row"><div class="cb-box cb-unchecked"></div><span class="cb-label">الاشتراك في النشرة</span></div>
+        <div class="cb-row"><div class="cb-box cb-indeterminate">−</div><span class="cb-label">تحديد الكل (جزئي)</span></div>
+        <div class="cb-row"><div class="cb-box cb-disabled"></div><span class="cb-label disabled">معطّل</span></div>
+        <div style="margin-top:20px;padding-top:20px;border-top:1px solid #F1F3F5;">
+          <div style="font-size:11px;color:#ADB5BD;margin-bottom:12px;font-weight:600;">Animation — حركة نابضة عند التحديد</div>
+          <div style="display:flex;gap:12px;">
+            <div class="cb-box cb-unchecked" style="transform:scale(1);transition:transform 0.15s;"></div>
+            <div class="cb-box cb-checked" style="transform:scale(1.1);">✓</div>
+            <div class="cb-box cb-checked" style="transform:scale(1);">✓</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RADIO -->
+      <div class="toggle-group">
+        <div class="toggle-group-title">RadioButton & RadioGroup</div>
+        <div class="rb-row"><div class="rb-outer rb-checked"><div class="rb-dot"></div></div><span class="rb-label">طلب جديد</span></div>
+        <div class="rb-row"><div class="rb-outer rb-unchecked"></div><span class="rb-label">تجديد طلب سابق</span></div>
+        <div class="rb-row"><div class="rb-outer rb-unchecked"></div><span class="rb-label">استفسار فقط</span></div>
+        <div style="margin-top:20px;padding-top:20px;border-top:1px solid #F1F3F5;">
+          <div style="font-size:11px;color:#ADB5BD;margin-bottom:12px;font-weight:600;">States الحالات</div>
+          <div style="display:flex;gap:12px;align-items:center;">
+            <div class="rb-outer rb-unchecked" title="Default"></div>
+            <div class="rb-outer rb-checked"><div class="rb-dot"></div></div>
+            <div class="rb-outer" style="border:1.5px solid #CED4DA;background:#F8F9FA;" title="Disabled"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEGMENTED + CHIPS -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:48px;">
+      <div style="background:#fff;border:1px solid #E9ECEF;border-radius:12px;padding:24px;">
+        <div class="toggle-group-title" style="margin-bottom:20px;">SegmentedControl — التحكم المقسّم</div>
+        <div class="seg-track">
+          <div class="seg-active">الكل</div>
+          <div class="seg-inactive">الفحص</div>
+          <div class="seg-inactive">الصيانة</div>
+        </div>
+        <div class="seg-track" style="margin-top:8px;">
+          <div class="seg-inactive">اليوم</div>
+          <div class="seg-active">الأسبوع</div>
+          <div class="seg-inactive">الشهر</div>
+          <div class="seg-inactive">السنة</div>
+        </div>
+        <div style="margin-top:16px;padding-top:16px;border-top:1px solid #F1F3F5;">
+          <div style="font-size:11px;color:#ADB5BD;margin-bottom:8px;font-weight:600;">Animated indicator يتحرك بسلاسة بين الأقسام</div>
+        </div>
+      </div>
+      <div style="background:#fff;border:1px solid #E9ECEF;border-radius:12px;padding:24px;">
+        <div class="toggle-group-title" style="margin-bottom:20px;">ChipGroup — مجموعة الشرائح</div>
+        <div class="chip-row" style="margin-bottom:12px;">
+          <div class="chip chip-selected">الكل ✕</div>
+          <div class="chip chip-default">فحص دوري</div>
+          <div class="chip chip-default">الصيانة</div>
+        </div>
+        <div class="chip-row" style="margin-bottom:12px;">
+          <div class="chip chip-selected">مكتمل ✕</div>
+          <div class="chip chip-selected">قيد المراجعة ✕</div>
+          <div class="chip chip-default">مرفوض</div>
+        </div>
+        <div class="chip-row">
+          <div class="chip chip-default">الرياض</div>
+          <div class="chip chip-selected">جدة ✕</div>
+          <div class="chip chip-default">الدمام</div>
+          <div class="chip chip-default">مكة</div>
+        </div>
+        <div style="margin-top:16px;padding-top:16px;border-top:1px solid #F1F3F5;">
+          <div style="font-size:11px;color:#ADB5BD;font-weight:600;">Multi-select · Single-select · Dismissable modes</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════ OTP INPUT ═══════════ -->
+  <div class="section">
+    <div class="section-label">02 — OTP Input</div>
+    <div class="section-title">حقل رمز التحقق</div>
+    <div class="section-desc">٦ صناديق منفصلة · انتقال تلقائي · دعم اللصق · حركة ناعمة</div>
+
+    <div class="canvas">
+      <div class="canvas-label">States — حالات حقل OTP</div>
+      <div style="display:flex;flex-direction:column;gap:32px;max-width:500px;margin:0 auto;">
+        <div>
+          <div style="font-size:11px;color:#ADB5BD;margin-bottom:12px;text-align:center;font-weight:600;">Default — فارغ</div>
+          <div class="otp-boxes">
+            <div class="otp-box otp-empty"></div>
+            <div class="otp-box otp-empty"></div>
+            <div class="otp-box otp-empty"></div>
+            <div class="otp-box otp-empty"></div>
+            <div class="otp-box otp-empty"></div>
+            <div class="otp-box otp-empty"></div>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;color:#ADB5BD;margin-bottom:12px;text-align:center;font-weight:600;">Filling — أثناء الإدخال</div>
+          <div class="otp-boxes">
+            <div class="otp-box otp-filled">٤</div>
+            <div class="otp-box otp-filled">٨</div>
+            <div class="otp-box otp-filled">٢</div>
+            <div class="otp-box otp-focused"></div>
+            <div class="otp-box otp-empty"></div>
+            <div class="otp-box otp-empty"></div>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;color:#2F9E44;margin-bottom:12px;text-align:center;font-weight:600;">Complete — مكتمل ✓</div>
+          <div class="otp-boxes">
+            <div class="otp-box otp-filled">٤</div>
+            <div class="otp-box otp-filled">٨</div>
+            <div class="otp-box otp-filled">٢</div>
+            <div class="otp-box otp-filled">٦</div>
+            <div class="otp-box otp-filled">١</div>
+            <div class="otp-box otp-filled">٩</div>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;color:#E03131;margin-bottom:12px;text-align:center;font-weight:600;">Error — رمز خاطئ</div>
+          <div class="otp-boxes">
+            <div class="otp-box otp-error">١</div>
+            <div class="otp-box otp-error">٢</div>
+            <div class="otp-box otp-error">٣</div>
+            <div class="otp-box otp-error">٤</div>
+            <div class="otp-box otp-error">٥</div>
+            <div class="otp-box otp-error">٦</div>
+          </div>
+          <div style="text-align:center;margin-top:8px;font-size:12px;color:#E03131;">الرمز غير صحيح. يرجى المحاولة مرة أخرى</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════ MODALS & SHEETS ═══════════ -->
+  <div class="section">
+    <div class="section-label">03 — Modals & Sheets</div>
+    <div class="section-title">النوافذ المنبثقة والأوراق السفلية</div>
+    <div class="section-desc">BottomSheet · ConfirmModal · AlertModal · FilterSheet — مع انيميشن Spring وإيماءات السحب</div>
+
+    <div class="modal-grid">
+      <!-- Bottom Sheet -->
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="font-size:11px;color:#ADB5BD;font-weight:700;text-transform:uppercase;letter-spacing:1px;">BottomSheet — ورقة سفلية</div>
+        <div class="modal-overlay">
+          <div class="sheet">
+            <div class="sheet-handle"></div>
+            <div class="sheet-title">رفع مستند</div>
+            <div class="sheet-sub">اختر نوع الملف المراد رفعه</div>
+            <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px;">
+              <div style="display:flex;align-items:center;gap:12px;padding:14px;border:1px solid #E9ECEF;border-radius:10px;background:#F8F9FA;">
+                <span style="font-size:20px;">📄</span>
+                <div>
+                  <div style="font-size:14px;font-weight:600;color:#212529;">PDF</div>
+                  <div style="font-size:11px;color:#6C757D;">حتى 10MB</div>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px;padding:14px;border:1.5px solid #0071CE;border-radius:10px;background:#E6F2FF;">
+                <span style="font-size:20px;">🖼</span>
+                <div>
+                  <div style="font-size:14px;font-weight:600;color:#0071CE;">صورة JPG/PNG</div>
+                  <div style="font-size:11px;color:#005BA5;">محدد ✓</div>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary" style="width:100%;">رفع الملف</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Confirm Modal -->
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="font-size:11px;color:#ADB5BD;font-weight:700;text-transform:uppercase;letter-spacing:1px;">ConfirmModal — تأكيد الإجراء</div>
+        <div class="modal-overlay centered">
+          <div class="dialog">
+            <div class="dialog-title">هل تريد حذف الطلب؟</div>
+            <div class="dialog-body">سيتم حذف الطلب REQ-042 نهائياً ولن تتمكن من استعادته.</div>
+            <div class="dialog-actions">
+              <button class="btn btn-secondary">إلغاء</button>
+              <button class="btn btn-danger">حذف</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alert Modal -->
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="font-size:11px;color:#ADB5BD;font-weight:700;text-transform:uppercase;letter-spacing:1px;">AlertModal — تنبيه</div>
+        <div class="modal-overlay centered">
+          <div class="dialog">
+            <div class="dialog-icon" style="background:#D3F9D8;">✅</div>
+            <div class="dialog-title">تم التقديم بنجاح!</div>
+            <div class="dialog-body">تم استلام طلبك رقم REQ-20241205-0042 وسيتم مراجعته خلال ٢٤ ساعة.</div>
+            <button class="btn btn-success" style="width:100%;">ممتاز</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter Sheet -->
+    <div class="canvas">
+      <div class="canvas-label">FilterSheet — ورقة التصفية</div>
+      <div style="max-width:480px;">
+        <div style="background:#fff;border-radius:20px 20px 0 0;padding:20px 20px 28px;border:1px solid #E9ECEF;">
+          <div class="sheet-handle"></div>
+          <div style="font-size:17px;font-weight:700;color:#212529;text-align:center;margin-bottom:24px;">تصفية النتائج</div>
+          <div style="margin-bottom:20px;">
+            <div style="font-size:11px;font-weight:700;color:#6C757D;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px;">نوع الخدمة</div>
+            <div class="filter-chip-row">
+              <div class="chip chip-selected">فحص دوري ✕</div>
+              <div class="chip chip-default">صيانة</div>
+              <div class="chip chip-default">تجديد رخصة</div>
+              <div class="chip chip-default">معاينة</div>
+            </div>
+          </div>
+          <div style="margin-bottom:20px;">
+            <div style="font-size:11px;font-weight:700;color:#6C757D;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px;">الحالة</div>
+            <div class="filter-chip-row">
+              <div class="chip chip-default">قيد المراجعة</div>
+              <div class="chip chip-selected">مكتمل ✕</div>
+              <div class="chip chip-default">مرفوض</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:12px;margin-top:24px;padding-top:20px;border-top:1px solid #E9ECEF;">
+            <button class="btn btn-secondary" style="flex:1;">إعادة تعيين</button>
+            <button class="btn btn-primary" style="flex:2;">تطبيق (٢ محددة)</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════ DATA DISPLAY ═══════════ -->
+  <div class="section">
+    <div class="section-label">04 — Data Display</div>
+    <div class="section-title">عرض البيانات</div>
+    <div class="section-desc">DataRow · InfoSection · Timeline · Avatar · IconBadge · Divider</div>
+
+    <div class="data-grid">
+      <!-- InfoSection -->
+      <div>
+        <div class="sub-label" style="margin-top:0;">InfoSection — قسم المعلومات</div>
+        <div class="info-card">
+          <div class="info-card-header">بيانات الورشة</div>
+          <div class="data-row">
+            <span class="data-label">اسم الورشة</span>
+            <span class="data-value">ورشة الإخلاص للسيارات</span>
+          </div>
+          <div class="data-row">
+            <span class="data-label">رقم السجل التجاري</span>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span class="data-copy">⎘</span>
+              <span class="data-value mono">4030123456</span>
+            </div>
+          </div>
+          <div class="data-row">
+            <span class="data-label">رقم الرخصة</span>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span class="data-copy">⎘</span>
+              <span class="data-value mono">LIC-2024-88421</span>
+            </div>
+          </div>
+          <div class="data-row">
+            <span class="data-label">المنطقة</span>
+            <span class="data-value">الرياض — حي العليا</span>
+          </div>
+          <div class="data-row">
+            <span class="data-label">الحالة</span>
+            <span style="background:#D3F9D8;color:#1A5C28;padding:3px 10px;border-radius:9999px;font-size:11px;font-weight:700;">نشطة ●</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Timeline -->
+      <div>
+        <div class="sub-label" style="margin-top:0;">Timeline — مسار الطلب</div>
+        <div style="background:#fff;border:1px solid #E9ECEF;border-radius:12px;padding:20px;">
+          <div class="timeline">
+            <div class="tl-item">
+              <div class="tl-left">
+                <div class="tl-dot done"></div>
+                <div class="tl-line done"></div>
+              </div>
+              <div class="tl-content">
+                <div class="tl-title">تم تقديم الطلب</div>
+                <div class="tl-desc">رقم: REQ-20241205-0042</div>
+                <div class="tl-time">٥ ديسمبر ٢٠٢٤ · ١٠:٣٠ ص</div>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-left">
+                <div class="tl-dot done"></div>
+                <div class="tl-line done"></div>
+              </div>
+              <div class="tl-content">
+                <div class="tl-title">قيد المراجعة</div>
+                <div class="tl-desc">تم استلامه من الجهة المختصة</div>
+                <div class="tl-time">٥ ديسمبر ٢٠٢٤ · ١١:٤٥ ص</div>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-left">
+                <div class="tl-dot active"></div>
+                <div class="tl-line"></div>
+              </div>
+              <div class="tl-content">
+                <div class="tl-title" style="color:#0071CE;font-weight:700;">التحقق من المستندات</div>
+                <div class="tl-desc" style="color:#0071CE;">جارٍ الآن...</div>
+                <div class="tl-time">٦ ديسمبر ٢٠٢٤ · الآن</div>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-left">
+                <div class="tl-dot pending"></div>
+              </div>
+              <div class="tl-content">
+                <div class="tl-title" style="color:#ADB5BD;">الاعتماد النهائي</div>
+                <div class="tl-desc" style="color:#CED4DA;">في انتظار إتمام المراجعة</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Avatars & IconBadges -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:48px;">
+      <div style="background:#fff;border:1px solid #E9ECEF;border-radius:12px;padding:24px;">
+        <div class="toggle-group-title" style="margin-bottom:20px;">Avatar & AvatarGroup</div>
+        <div class="avatar-showcase">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+            <div class="av av-sm av-blue">م</div><div style="font-size:9px;color:#ADB5BD;">sm</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+            <div class="av av-md av-purple">أ</div><div style="font-size:9px;color:#ADB5BD;">md</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+            <div class="av av-lg av-orange">س</div><div style="font-size:9px;color:#ADB5BD;">lg</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+            <div class="av av-xl av-green">ع</div><div style="font-size:9px;color:#ADB5BD;">xl</div>
+          </div>
+          <div style="width:1px;height:40px;background:#E9ECEF;margin:0 4px;"></div>
+          <div style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;">
+            <div class="av-group">
+              <div class="av av-md av-blue">م</div>
+              <div class="av av-md av-purple">أ</div>
+              <div class="av av-md av-orange">س</div>
+              <div class="av-count">+٥</div>
+            </div>
+            <div style="font-size:9px;color:#ADB5BD;">AvatarGroup</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:#fff;border:1px solid #E9ECEF;border-radius:12px;padding:24px;">
+        <div class="toggle-group-title" style="margin-bottom:20px;">IconBadge — حاوية الأيقونة</div>
+        <div class="iconbadge-row">
+          <div class="iconbadge">
+            <div class="ib ib-sm" style="background:#E6F2FF;">🔧</div>
+            <div class="ib-label">sm·36</div>
+          </div>
+          <div class="iconbadge">
+            <div class="ib ib-md" style="background:#F2EAF9;">📋</div>
+            <div class="ib-label">md·48</div>
+          </div>
+          <div class="iconbadge">
+            <div class="ib ib-lg" style="background:#FFF0EC;">🚗</div>
+            <div class="ib-label">lg·60</div>
+          </div>
+          <div style="width:1px;height:40px;background:#E9ECEF;margin:0 4px;align-self:center;"></div>
+          <div class="iconbadge">
+            <div class="ib ib-md" style="background:#D3F9D8;">🏪</div>
+            <div class="ib-label">custom bg</div>
+          </div>
+          <div class="iconbadge">
+            <div class="ib ib-md" style="background:#FFF3BF;">📄</div>
+            <div class="ib-label">custom bg</div>
+          </div>
+          <div class="iconbadge">
+            <div class="ib ib-md" style="background:#E6F2FF;">🔔</div>
+            <div class="ib-label">custom bg</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════ NAVIGATION DETAIL ═══════════ -->
+  <div class="section">
+    <div class="section-label">05 — Navigation Detail</div>
+    <div class="section-title">التنقل التفصيلي</div>
+    <div class="section-desc">TopAppBar · StackHeader · Drawer · BottomTabBar — مع RTL كامل وحركات Reanimated</div>
+
+    <div class="nav-grid">
+      <!-- Headers -->
+      <div>
+        <div class="sub-label" style="margin-top:0;">TopAppBar + StackHeader — رأس التطبيق</div>
+        <div class="app-header" style="margin-bottom:12px;">
+          <div class="app-header-bar">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div class="icon-btn">→</div>
+              <div class="app-header-title">طلبات الخدمة</div>
+            </div>
+            <div style="display:flex;gap:8px;">
+              <div class="icon-btn">🔍</div>
+              <div class="icon-btn" style="position:relative;">
+                🔔
+                <div style="position:absolute;top:6px;right:6px;width:8px;height:8px;background:#E03131;border-radius:4px;border:1px solid #fff;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="app-header">
+          <div class="app-header-bar">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div class="icon-btn">→</div>
+              <div class="app-header-title">تفاصيل الطلب</div>
+            </div>
+            <div class="icon-btn">⋯</div>
+          </div>
+          <div class="breadcrumb-bar">
+            <span class="bc-item">الرئيسية</span>
+            <span class="bc-sep">‹</span>
+            <span class="bc-item">طلباتي</span>
+            <span class="bc-sep">‹</span>
+            <span class="bc-item active">REQ-042</span>
+          </div>
+        </div>
+        <div style="margin-top:8px;font-size:11px;color:#ADB5BD;font-weight:600;">السهم يتقلب تلقائياً في وضع RTL</div>
+      </div>
+
+      <!-- Drawer -->
+      <div>
+        <div class="sub-label" style="margin-top:0;">Drawer — القائمة الجانبية</div>
+        <div class="drawer-preview">
+          <div class="drawer-overlay"></div>
+          <div class="drawer-panel">
+            <div class="drawer-header">
+              <div class="drawer-logo">ارتح</div>
+              <div class="drawer-sub">ورشة الإخلاص · الرياض</div>
+            </div>
+            <div class="drawer-items">
+              <div class="drawer-item active">
+                <div class="drawer-item-icon" style="background:#E6F2FF;">🏠</div>
+                <span class="drawer-item-label">الرئيسية</span>
+              </div>
+              <div class="drawer-item">
+                <div class="drawer-item-icon" style="background:#F8F9FA;">📋</div>
+                <span class="drawer-item-label" style="color:#212529;">طلباتي</span>
+                <div style="margin-right:auto;background:#E03131;color:#fff;border-radius:9999px;padding:1px 7px;font-size:10px;font-weight:700;">٣</div>
+              </div>
+              <div class="drawer-item">
+                <div class="drawer-item-icon" style="background:#F8F9FA;">🔔</div>
+                <span class="drawer-item-label" style="color:#212529;">الإشعارات</span>
+              </div>
+              <div class="drawer-item">
+                <div class="drawer-item-icon" style="background:#F8F9FA;">👤</div>
+                <span class="drawer-item-label" style="color:#212529;">الحساب</span>
+              </div>
+              <div class="drawer-item">
+                <div class="drawer-item-icon" style="background:#F8F9FA;">⚙️</div>
+                <span class="drawer-item-label" style="color:#212529;">الإعدادات</span>
+              </div>
+              <div style="height:1px;background:#E9ECEF;margin:8px 0;"></div>
+              <div class="drawer-item">
+                <div class="drawer-item-icon" style="background:#FFE3E3;">🚪</div>
+                <span class="drawer-item-label" style="color:#E03131;">تسجيل الخروج</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:8px;font-size:11px;color:#ADB5BD;font-weight:600;">يظهر من اليمين في RTL · يُغلق بالسحب أو النقر على الخلفية</div>
+      </div>
+    </div>
+
+    <!-- Bottom Tab Bar detail -->
+    <div class="sub-label">BottomTabBar — شريط التبويب السفلي (80px)</div>
+    <div class="tab-bar-detail" style="margin-bottom:48px;">
+      <div style="padding:8px 16px;font-size:11px;color:#ADB5BD;border-bottom:1px solid #E9ECEF;font-weight:600;text-transform:uppercase;letter-spacing:1px;">Active indicator slides with Reanimated</div>
+      <div class="tab-bar-inner">
+        <div class="tab-item active">
+          <div class="tab-active-line"></div>
+          <div class="tab-icon">🏠</div>
+          <div class="tab-label" style="color:#0071CE;">الرئيسية</div>
+        </div>
+        <div class="tab-item" style="position:relative;">
+          <div class="tab-badge-wrap">
+            <div class="tab-icon">📋</div>
+            <div class="tab-badge">٣</div>
+          </div>
+          <div class="tab-label">طلباتي</div>
+        </div>
+        <div class="tab-item">
+          <div class="tab-icon">🔍</div>
+          <div class="tab-label">البحث</div>
+        </div>
+        <div class="tab-item">
+          <div class="tab-icon">🔔</div>
+          <div class="tab-label">الإشعارات</div>
+        </div>
+        <div class="tab-item">
+          <div class="tab-icon">👤</div>
+          <div class="tab-label">حسابي</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════ STEP INDICATOR ═══════════ -->
+  <div class="section">
+    <div class="section-label">06 — Step Indicator & Progress</div>
+    <div class="section-title">مؤشر الخطوات والتقدم</div>
+
+    <div class="canvas">
+      <div class="canvas-label">StepIndicator — ٥ خطوات</div>
+      <div style="display:flex;align-items:flex-start;margin-bottom:48px;">
+        <div class="step-meta">
+          <div class="step-circle done">✓</div>
+          <div class="step-label">بيانات الورشة</div>
+        </div>
+        <div class="step-connector done"></div>
+        <div class="step-meta">
+          <div class="step-circle done">✓</div>
+          <div class="step-label">معلومات المركبة</div>
+        </div>
+        <div class="step-connector done"></div>
+        <div class="step-meta">
+          <div class="step-circle active">٣</div>
+          <div class="step-label active">المستندات</div>
+        </div>
+        <div class="step-connector todo"></div>
+        <div class="step-meta">
+          <div class="step-circle todo">٤</div>
+          <div class="step-label">المراجعة</div>
+        </div>
+        <div class="step-connector todo"></div>
+        <div class="step-meta">
+          <div class="step-circle todo">٥</div>
+          <div class="step-label">التأكيد</div>
+        </div>
+      </div>
+
+      <div class="canvas-label">ProgressBar — أشرطة التقدم</div>
+      <div style="max-width:600px;display:flex;flex-direction:column;gap:20px;">
+        <div class="progress-wrap">
+          <div class="progress-header"><span class="progress-title">اكتمال الملف الشخصي</span><span class="progress-pct">٧٥٪</span></div>
+          <div class="progress-track"><div class="progress-fill" style="width:75%;background:linear-gradient(90deg,#0071CE,#4DA3FF);"></div></div>
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-header"><span class="progress-title">معدل إتمام الطلبات</span><span class="progress-pct" style="color:#2F9E44;">٩٢٪</span></div>
+          <div class="progress-track"><div class="progress-fill" style="width:92%;background:linear-gradient(90deg,#2F9E44,#74C27A);"></div></div>
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-header"><span class="progress-title">طلبات معلقة</span><span class="progress-pct" style="color:#F59F00;">٣٠٪</span></div>
+          <div class="progress-track"><div class="progress-fill" style="width:30%;background:linear-gradient(90deg,#F59F00,#FFCD6B);"></div></div>
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-header"><span class="progress-title">تحميل البيانات... (indeterminate)</span></div>
+          <div class="progress-track" style="overflow:hidden;">
+            <div class="progress-fill" style="width:40%;background:linear-gradient(90deg,transparent,#0071CE,transparent);animation:slide 1.2s ease infinite;" ></div>
+          </div>
+        </div>
+      </div>
+      <style>@keyframes slide{0%{margin-right:100%}100%{margin-right:-60%}}</style>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════ TOAST & INLINE ALERTS ═══════════ -->
+  <div class="section">
+    <div class="section-label">07 — Toast & Inline Alerts</div>
+    <div class="section-title">الإشعارات والتنبيهات السياقية</div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-bottom:64px;">
+      <div>
+        <div class="sub-label" style="margin-top:0;">Toast / Snackbar — تلقائي الاختفاء (3 ثوانٍ)</div>
+        <div class="toast-stack">
+          <div class="toast toast-success">
+            <span class="toast-icon">✅</span>
+            <div class="toast-content">
+              <div class="toast-title">تم التقديم بنجاح!</div>
+              <div class="toast-msg">رقم الطلب: REQ-20241205-0042</div>
+            </div>
+            <span class="toast-dismiss">✕</span>
+          </div>
+          <div class="toast toast-error">
+            <span class="toast-icon">❌</span>
+            <div class="toast-content">
+              <div class="toast-title">فشل تحميل البيانات</div>
+              <div class="toast-msg">تحقق من الاتصال بالإنترنت</div>
+            </div>
+            <span class="toast-dismiss">✕</span>
+          </div>
+          <div class="toast toast-warning">
+            <span class="toast-icon">⚠️</span>
+            <div class="toast-content">
+              <div class="toast-title">مستندات ناقصة</div>
+              <div class="toast-msg">يرجى رفع وثيقة التأمين</div>
+            </div>
+            <span class="toast-dismiss">✕</span>
+          </div>
+          <div class="toast toast-info">
+            <span class="toast-icon">ℹ️</span>
+            <div class="toast-content">
+              <div class="toast-title">تحديث جديد متاح</div>
+              <div class="toast-msg">الإصدار ٢.٣.١ جاهز للتنزيل</div>
+            </div>
+            <span class="toast-dismiss">✕</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="sub-label" style="margin-top:0;">InlineAlert — تنبيه مضمّن دائم</div>
+        <div class="inline-alert ia-success">
+          <span class="ia-icon">✅</span>
+          <div><div class="ia-title">تم تفعيل الحساب</div><div class="ia-desc">حسابك مفعّل ويمكنك الآن تقديم الطلبات بشكل كامل.</div></div>
+        </div>
+        <div class="inline-alert ia-warning">
+          <span class="ia-icon">⚠️</span>
+          <div><div class="ia-title">رخصة التشغيل تنتهي قريباً</div><div class="ia-desc">تنتهي صلاحية الرخصة في ١٥ يناير ٢٠٢٥. يرجى التجديد مبكراً.</div></div>
+        </div>
+        <div class="inline-alert ia-error">
+          <span class="ia-icon">❌</span>
+          <div><div class="ia-title">الطلب مرفوض</div><div class="ia-desc">المستندات المرفقة غير مكتملة. يرجى إعادة الرفع ثم التقديم مجدداً.</div></div>
+        </div>
+        <div class="inline-alert ia-info">
+          <span class="ia-icon">ℹ️</span>
+          <div><div class="ia-title">تنبيه النظام</div><div class="ia-desc">سيكون النظام في وضع الصيانة من الساعة ٢ إلى ٤ صباحاً.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════ SKELETON LOADER ═══════════ -->
+  <div class="section">
+    <div class="section-label">08 — Skeleton Loader</div>
+    <div class="section-title">هيكل التحميل</div>
+    <div class="section-desc">SkeletonCard · SkeletonListItem · SkeletonText · SkeletonAvatar — حركة shimmer متكررة</div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:64px;">
+      <div>
+        <div class="sub-label" style="margin-top:0;">SkeletonCard — بطاقة التحميل</div>
+        <div class="skel-card">
+          <div style="display:flex;gap:12px;align-items:center;margin-bottom:16px;">
+            <div class="skel" style="width:48px;height:48px;border-radius:14px;flex-shrink:0;"></div>
+            <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
+              <div class="skel" style="height:14px;width:70%;"></div>
+              <div class="skel" style="height:11px;width:45%;"></div>
+            </div>
+            <div class="skel" style="width:60px;height:22px;border-radius:11px;"></div>
+          </div>
+          <div class="skel" style="height:8px;width:100%;margin-bottom:6px;"></div>
+          <div class="skel" style="height:8px;width:65%;"></div>
+        </div>
+        <div class="skel-card">
+          <div style="display:flex;gap:12px;align-items:center;margin-bottom:16px;">
+            <div class="skel" style="width:48px;height:48px;border-radius:14px;flex-shrink:0;"></div>
+            <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
+              <div class="skel" style="height:14px;width:80%;"></div>
+              <div class="skel" style="height:11px;width:50%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="sub-label" style="margin-top:0;">SkeletonListItem — عنصر القائمة</div>
+        <div style="background:#fff;border:1px solid #E9ECEF;border-radius:12px;overflow:hidden;">
+          <div style="display:flex;align-items:center;padding:14px 16px;gap:12px;border-bottom:1px solid #F1F3F5;">
+            <div class="skel" style="width:40px;height:40px;border-radius:10px;flex-shrink:0;"></div>
+            <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
+              <div class="skel" style="height:13px;width:60%;"></div>
+              <div class="skel" style="height:10px;width:40%;"></div>
+            </div>
+            <div class="skel" style="width:48px;height:22px;border-radius:11px;"></div>
+          </div>
+          <div style="display:flex;align-items:center;padding:14px 16px;gap:12px;border-bottom:1px solid #F1F3F5;">
+            <div class="skel" style="width:40px;height:40px;border-radius:10px;flex-shrink:0;"></div>
+            <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
+              <div class="skel" style="height:13px;width:75%;"></div>
+              <div class="skel" style="height:10px;width:45%;"></div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;padding:14px 16px;gap:12px;">
+            <div class="skel" style="width:40px;height:40px;border-radius:10px;flex-shrink:0;"></div>
+            <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
+              <div class="skel" style="height:13px;width:55%;"></div>
+              <div class="skel" style="height:10px;width:35%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+</div>
+</body>
+</html>

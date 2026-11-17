@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1440" />
+<title>Ertah DS — Spacing, Radius & Shadows</title>
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Cairo', sans-serif; background:#F8F9FA; color:#212529; direction:rtl; }
+  .page { width:1440px; min-height:100vh; background:#fff; }
+
+  .cover {
+    width:100%; height:160px;
+    background:linear-gradient(135deg, #331306 0%, #993820 50%, #FF5D36 100%);
+    display:flex; align-items:center; justify-content:space-between; padding:0 64px;
+  }
+  .cover-tag { font-size:11px; font-weight:600; letter-spacing:2px; color:rgba(255,255,255,0.5); text-transform:uppercase; margin-bottom:4px; }
+  .cover-title { font-size:36px; font-weight:900; color:#fff; }
+  .cover-sub { font-size:15px; color:rgba(255,255,255,0.65); }
+  .cover-logo { font-size:56px; font-weight:900; color:rgba(255,255,255,0.12); }
+
+  .section { padding:64px 64px 0; }
+  .section-label { font-size:11px; font-weight:700; letter-spacing:2.5px; color:#FF5D36; text-transform:uppercase; margin-bottom:8px; }
+  .section-title { font-size:24px; font-weight:700; color:#212529; margin-bottom:6px; }
+  .section-desc { font-size:14px; color:#6C757D; line-height:1.6; margin-bottom:40px; }
+  .divider { height:1px; background:#E9ECEF; margin:48px 64px 0; }
+  .spacer { height:64px; }
+
+  /* SPACING */
+  .spacing-list { display:flex; flex-direction:column; gap:12px; margin-bottom:48px; }
+  .spacing-row { display:flex; align-items:center; gap:24px; padding:12px 0; border-bottom:1px solid #F1F3F5; }
+  .spacing-token { min-width:80px; font-size:12px; font-family:monospace; color:#FF5D36; background:#FFF0EC; padding:3px 8px; border-radius:4px; }
+  .spacing-value { min-width:60px; font-size:12px; font-family:monospace; color:#6C757D; }
+  .spacing-bar-wrap { flex:1; display:flex; align-items:center; }
+  .spacing-bar { height:24px; background:linear-gradient(90deg,#FF5D36,#FF9074); border-radius:4px; }
+  .spacing-usage { min-width:200px; font-size:12px; color:#6C757D; text-align:right; }
+
+  /* GRID DEMO */
+  .grid-demo { background:#F8F9FA; border-radius:16px; padding:40px; margin-bottom:48px; }
+  .grid-demo-title { font-size:13px; font-weight:600; color:#495057; margin-bottom:20px; text-transform:uppercase; letter-spacing:1px; }
+  .grid-visual { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .grid-cell { background:#fff; border:1px dashed #CED4DA; border-radius:8px; padding:16px; text-align:center; }
+  .grid-cell-label { font-size:11px; color:#ADB5BD; }
+
+  /* RADIUS */
+  .radius-grid { display:flex; gap:24px; align-items:flex-end; margin-bottom:48px; flex-wrap:wrap; }
+  .radius-item { display:flex; flex-direction:column; align-items:center; gap:12px; }
+  .radius-box { background:linear-gradient(135deg,#E6F2FF,#B3D8FF); border:2px solid #0071CE; display:flex; align-items:center; justify-content:center; width:80px; height:80px; }
+  .radius-token { font-size:11px; font-family:monospace; color:#0071CE; background:#E6F2FF; padding:3px 8px; border-radius:4px; }
+  .radius-value { font-size:11px; color:#6C757D; }
+  .radius-usage-label { font-size:10px; color:#ADB5BD; text-align:center; max-width:80px; }
+
+  /* SHADOWS */
+  .shadow-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:24px; margin-bottom:48px; }
+  .shadow-card { background:#fff; border-radius:12px; padding:24px; display:flex; flex-direction:column; gap:16px; }
+  .shadow-card.sm-shadow { box-shadow:0 1px 3px rgba(0,0,0,0.06); }
+  .shadow-card.md-shadow { box-shadow:0 4px 8px rgba(0,0,0,0.08); }
+  .shadow-card.lg-shadow { box-shadow:0 8px 16px rgba(0,0,0,0.10); }
+  .shadow-card.none-shadow { border:1px solid #E9ECEF; }
+  .shadow-label { font-size:12px; font-weight:700; color:#495057; text-transform:uppercase; letter-spacing:0.5px; }
+  .shadow-code { font-size:10px; font-family:monospace; color:#6C757D; line-height:1.8; background:#F8F9FA; padding:8px; border-radius:6px; }
+  .shadow-token { font-size:11px; font-family:monospace; color:#0071CE; background:#E6F2FF; padding:3px 8px; border-radius:4px; display:inline-block; }
+  .shadow-usage { font-size:12px; color:#6C757D; }
+
+  /* ELEVATION SCALE */
+  .elevation-strip { display:flex; align-items:flex-end; gap:16px; margin-bottom:48px; padding:40px; background:#F8F9FA; border-radius:16px; justify-content:center; }
+  .elevation-item { display:flex; flex-direction:column; align-items:center; gap:12px; }
+  .elevation-box { width:80px; background:#fff; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:11px; color:#6C757D; }
+  .elevation-label { font-size:11px; font-family:monospace; color:#6C757D; }
+
+  /* ICON GRID */
+  .icon-grid { display:grid; grid-template-columns:repeat(12,1fr); gap:16px; margin-bottom:64px; }
+  .icon-item { display:flex; flex-direction:column; align-items:center; gap:8px; padding:16px 8px; border-radius:8px; border:1px solid #E9ECEF; }
+  .icon-symbol { font-size:24px; }
+  .icon-name { font-size:9px; color:#ADB5BD; text-align:center; font-family:monospace; }
+
+  /* MOTION */
+  .motion-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-bottom:64px; }
+  .motion-card { border:1px solid #E9ECEF; border-radius:12px; padding:24px; }
+  .motion-title { font-size:13px; font-weight:700; color:#212529; margin-bottom:8px; }
+  .motion-props { display:flex; flex-direction:column; gap:6px; }
+  .motion-row { display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px solid #F1F3F5; }
+  .motion-key { font-size:11px; color:#6C757D; }
+  .motion-val { font-size:11px; font-family:monospace; color:#0071CE; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <div>
+      <div class="cover-tag">Design System — 03</div>
+      <div class="cover-title">ارتح · Ertah</div>
+      <div class="cover-sub">Foundations — المساحات والحدود والظلال</div>
+    </div>
+    <div class="cover-logo">⬜</div>
+  </div>
+
+  <!-- SPACING -->
+  <div class="section">
+    <div class="section-label">01 — Spacing Scale</div>
+    <div class="section-title">سلم المسافات</div>
+    <div class="section-desc">نظام مسافات مبني على وحدة 4px — يضمن الاتساق البصري في جميع أجزاء التطبيق</div>
+    <div class="spacing-list">
+      <div class="spacing-row">
+        <span class="spacing-token">spacing.0</span>
+        <span class="spacing-value">0px</span>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:2px;opacity:0.3;"></div></div>
+        <span class="spacing-usage">لا مسافة</span>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-token">spacing.1</span>
+        <span class="spacing-value">4px</span>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:16px;"></div></div>
+        <span class="spacing-usage">مسافات الأيقونات الداخلية</span>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-token">spacing.2</span>
+        <span class="spacing-value">8px</span>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:32px;"></div></div>
+        <span class="spacing-usage">مسافات العناصر المتداخلة</span>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-token">spacing.3</span>
+        <span class="spacing-value">12px</span>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:48px;"></div></div>
+        <span class="spacing-usage">padding الأزرار الصغيرة</span>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-token">spacing.4</span>
+        <span class="spacing-value">16px</span>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:64px;"></div></div>
+        <span class="spacing-usage">padding البطاقات والحقول — الأساسي</span>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-token">spacing.5</span>
+        <span class="spacing-value">20px</span>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:80px;"></div></div>
+        <span class="spacing-usage">فراغات الأقسام الصغيرة</span>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-token">spacing.6</span>
+        <span class="spacing-value">24px</span>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:96px;"></div></div>
+        <span class="spacing-usage">padding الصفحات — أفقي</span>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-token">spacing.8</span>
+        <span class="spacing-value">32px</span>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:128px;"></div></div>
+        <span class="spacing-usage">فراغات الأقسام الرئيسية</span>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-token">spacing.10</span>
+        <span class="spacing-value">40px</span>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:160px;"></div></div>
+        <span class="spacing-usage">مسافات التخطيط الكبيرة</span>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-token">spacing.12</span>
+        <span class="spacing-value">48px</span>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:192px;"></div></div>
+        <span class="spacing-usage">ارتفاع شريط التنقل</span>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-token">spacing.16</span>
+        <span class="spacing-value">64px</span>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:256px;"></div></div>
+        <span class="spacing-usage">فراغات الأقسام الكبيرة</span>
+      </div>
+      <div class="spacing-row">
+        <span class="spacing-token">spacing.20</span>
+        <span class="spacing-value">80px</span>
+        <div class="spacing-bar-wrap"><div class="spacing-bar" style="width:320px;"></div></div>
+        <span class="spacing-usage">ارتفاع شريط التطبيق السفلي</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- BORDER RADIUS -->
+  <div class="section">
+    <div class="section-label">02 — Border Radius</div>
+    <div class="section-title">نصف قطر الحواف</div>
+    <div class="section-desc">منظومة متدرجة تمنح التطبيق شكلاً حديثاً ولطيفاً مع الحفاظ على الجدية المهنية</div>
+    <div class="radius-grid">
+      <div class="radius-item">
+        <div class="radius-box" style="border-radius:0;">
+          <span style="font-size:10px;color:#0071CE;">حاد</span>
+        </div>
+        <span class="radius-token">radius.none</span>
+        <span class="radius-value">0px</span>
+        <span class="radius-usage-label">فواصل وحدود المجداول</span>
+      </div>
+      <div class="radius-item">
+        <div class="radius-box" style="border-radius:4px;">
+          <span style="font-size:10px;color:#0071CE;">xs</span>
+        </div>
+        <span class="radius-token">radius.xs</span>
+        <span class="radius-value">4px</span>
+        <span class="radius-usage-label">الشارات الصغيرة والبطاقات</span>
+      </div>
+      <div class="radius-item">
+        <div class="radius-box" style="border-radius:8px;">
+          <span style="font-size:10px;color:#0071CE;">sm</span>
+        </div>
+        <span class="radius-token">radius.sm</span>
+        <span class="radius-value">8px</span>
+        <span class="radius-usage-label">الأزرار الثانوية</span>
+      </div>
+      <div class="radius-item">
+        <div class="radius-box" style="border-radius:12px;">
+          <span style="font-size:10px;color:#0071CE;">md</span>
+        </div>
+        <span class="radius-token">radius.md</span>
+        <span class="radius-value">12px</span>
+        <span class="radius-usage-label">البطاقات وحقول الإدخال — الافتراضي</span>
+      </div>
+      <div class="radius-item">
+        <div class="radius-box" style="border-radius:16px;">
+          <span style="font-size:10px;color:#0071CE;">lg</span>
+        </div>
+        <span class="radius-token">radius.lg</span>
+        <span class="radius-value">16px</span>
+        <span class="radius-usage-label">البطاقات الكبيرة</span>
+      </div>
+      <div class="radius-item">
+        <div class="radius-box" style="border-radius:20px;">
+          <span style="font-size:10px;color:#0071CE;">xl</span>
+        </div>
+        <span class="radius-token">radius.xl</span>
+        <span class="radius-value">20px</span>
+        <span class="radius-usage-label">النوافذ المنبثقة والقاع</span>
+      </div>
+      <div class="radius-item">
+        <div class="radius-box" style="border-radius:9999px;width:80px;height:48px;">
+          <span style="font-size:10px;color:#0071CE;">pill</span>
+        </div>
+        <span class="radius-token">radius.full</span>
+        <span class="radius-value">9999px</span>
+        <span class="radius-usage-label">الأزرار الكاملة والعلامات</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SHADOWS -->
+  <div class="section">
+    <div class="section-label">03 — Shadow & Elevation</div>
+    <div class="section-title">الظلال والارتفاع</div>
+    <div class="section-desc">منظومة ظلال متدرجة تعبّر عن طبقات واجهة المستخدم</div>
+    <div class="shadow-grid">
+      <div class="shadow-card none-shadow">
+        <div class="shadow-token">shadow.none</div>
+        <div class="shadow-label">Flat — مستوٍ</div>
+        <div class="shadow-code">لا ظل · border فقط</div>
+        <div class="shadow-usage">المحتوى المضمّن، الجداول، الأقسام</div>
+      </div>
+      <div class="shadow-card sm-shadow">
+        <div class="shadow-token">shadow.sm</div>
+        <div class="shadow-label">Small — صغير</div>
+        <div class="shadow-code">offset: 0,1<br/>opacity: 0.06<br/>radius: 3<br/>elevation: 2</div>
+        <div class="shadow-usage">البطاقات الثانوية، الأزرار</div>
+      </div>
+      <div class="shadow-card md-shadow">
+        <div class="shadow-token">shadow.md</div>
+        <div class="shadow-label">Medium — متوسط</div>
+        <div class="shadow-code">offset: 0,4<br/>opacity: 0.08<br/>radius: 8<br/>elevation: 4</div>
+        <div class="shadow-usage">البطاقات الرئيسية، القوائم المنسدلة</div>
+      </div>
+      <div class="shadow-card lg-shadow">
+        <div class="shadow-token">shadow.lg</div>
+        <div class="shadow-label">Large — كبير</div>
+        <div class="shadow-code">offset: 0,8<br/>opacity: 0.10<br/>radius: 16<br/>elevation: 8</div>
+        <div class="shadow-usage">النوافذ المنبثقة، الأوراق السفلية</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- MOTION TOKENS -->
+  <div class="section">
+    <div class="section-label">04 — Motion & Animation</div>
+    <div class="section-title">الحركة والتحريك</div>
+    <div class="section-desc">قيم موحدة للتحريكات تضمن تجربة مستخدم سلسة ومتوقعة</div>
+    <div class="motion-grid">
+      <div class="motion-card">
+        <div class="motion-title">⚡ Instant — فوري</div>
+        <div class="motion-props">
+          <div class="motion-row"><span class="motion-key">duration</span><span class="motion-val">0ms</span></div>
+          <div class="motion-row"><span class="motion-key">easing</span><span class="motion-val">linear</span></div>
+          <div class="motion-row"><span class="motion-key">استخدام</span><span class="motion-key">تغيير الألوان الفوري</span></div>
+        </div>
+      </div>
+      <div class="motion-card">
+        <div class="motion-title">🐇 Fast — سريع</div>
+        <div class="motion-props">
+          <div class="motion-row"><span class="motion-key">duration</span><span class="motion-val">150ms</span></div>
+          <div class="motion-row"><span class="motion-key">easing</span><span class="motion-val">ease-out</span></div>
+          <div class="motion-row"><span class="motion-key">استخدام</span><span class="motion-key">hover, press</span></div>
+        </div>
+      </div>
+      <div class="motion-card">
+        <div class="motion-title">🚶 Normal — عادي</div>
+        <div class="motion-props">
+          <div class="motion-row"><span class="motion-key">duration</span><span class="motion-val">250ms</span></div>
+          <div class="motion-row"><span class="motion-key">easing</span><span class="motion-val">ease-in-out</span></div>
+          <div class="motion-row"><span class="motion-key">استخدام</span><span class="motion-key">فتح البطاقات والأقسام</span></div>
+        </div>
+      </div>
+      <div class="motion-card">
+        <div class="motion-title">🐢 Slow — بطيء</div>
+        <div class="motion-props">
+          <div class="motion-row"><span class="motion-key">duration</span><span class="motion-val">400ms</span></div>
+          <div class="motion-row"><span class="motion-key">easing</span><span class="motion-val">ease-in-out</span></div>
+          <div class="motion-row"><span class="motion-key">استخدام</span><span class="motion-key">الشاشات والانتقالات</span></div>
+        </div>
+      </div>
+      <div class="motion-card">
+        <div class="motion-title">🍃 Spring — نابض</div>
+        <div class="motion-props">
+          <div class="motion-row"><span class="motion-key">duration</span><span class="motion-val">350ms</span></div>
+          <div class="motion-row"><span class="motion-key">easing</span><span class="motion-val">spring(1,0.8,20)</span></div>
+          <div class="motion-row"><span class="motion-key">استخدام</span><span class="motion-key">الأوراق السفلية والمودالات</span></div>
+        </div>
+      </div>
+      <div class="motion-card">
+        <div class="motion-title">✨ Entrance — دخول</div>
+        <div class="motion-props">
+          <div class="motion-row"><span class="motion-key">duration</span><span class="motion-val">300ms</span></div>
+          <div class="motion-row"><span class="motion-key">easing</span><span class="motion-val">ease-out</span></div>
+          <div class="motion-row"><span class="motion-key">استخدام</span><span class="motion-key">ظهور العناصر والقوائم</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+</div>
+</body>
+</html>
