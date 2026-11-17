@@ -1,0 +1,25 @@
+name: ertah_design_system
+description: Ertah design tokens and Flutter theme, generated from the Figma file "Ertah app 27".
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: ">=3.4.0 <4.0.0"
+  flutter: ">=3.22.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+flutter:
+  # DIN Next LT Arabic is a licensed font and is NOT included in this repo.
+  # Once the licensed files are added to fonts/, uncomment:
+  # fonts:
+  #   - family: DIN Next LT Arabic
+  #     fonts:
+  #       - asset: fonts/DINNextLTArabic-Regular.ttf
+  #         weight: 400
+  #       - asset: fonts/DINNextLTArabic-Medium.ttf
+  #         weight: 500
+  #       - asset: fonts/DINNextLTArabic-Bold.ttf
+  #         weight: 700

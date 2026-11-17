@@ -1,0 +1,57 @@
+{
+  "fileKey": "oIMhGYwGltjjk0Kz6p8ZnL",
+  "iconFrames": {
+    "ui-24": "12:4",
+    "service-nav-22": "12:73",
+    "warning-lights-28": "12:108",
+    "service": "57:1046"
+  },
+  "logoFrames": {
+    "car-logos": "140:15590"
+  },
+  "screenSections": {
+    "Login · Start & password": "61:5850",
+    "Login · OTP & quick login": "61:6142",
+    "Login · Forgot password & register": "61:6375",
+    "Home": "59:5296",
+    "Account": "124:13894",
+    "Notifications": "125:15405",
+    "Instant Fix-permit · IFP": "86:9398",
+    "Fix permit issuing · NFP": "94:10498",
+    "Job Card · بطاقة الدخول": "30:3",
+    "Job Card · Bodywork flow (Repair permit)": "37:519",
+    "Job Card · Details by status & check-out": "38:954",
+    "Maintenance report · تقرير زيارات الورش": "98:11365",
+    "Specifications report · استعلام المواصفات": "105:12391",
+    "E-Invoicing · Invoices": "40:1726",
+    "E-Invoicing · Create invoice": "41:1785",
+    "E-Invoicing · ZATCA onboarding": "40:1359",
+    "Mojaz · Get report": "46:2683",
+    "Mojaz · Payment": "46:2958",
+    "Mojaz · My reports": "47:3196",
+    "Payments · Payment requests": "51:3415",
+    "Payments · Bank account (IBAN)": "52:3915",
+    "Payments · Advance payment": "52:4132",
+    "Phone input · International": "65:6466",
+    "Operations tab · العمليات": "55:4413",
+    "Subscriptions · الاشتراكات": "80:6986",
+    "Parking · تأجير موقف": "81:7922",
+    "Customer reminder · إرسال رسالة": "82:8374",
+    "Customer reminder · السجل والإحصائيات": "83:8860"
+  },
+  "designSystemSections": {
+    "1 · Foundations": "7:2",
+    "2 · Icons": "12:2",
+    "3 · Actions": "13:2",
+    "4 · Forms": "14:59",
+    "5 · Feedback & layout": "15:79",
+    "6 · Data display": "16:122",
+    "7 · Navigation": "17:148",
+    "8 · Ertah domain": "18:220",
+    "9 · Mobile patterns": "19:334",
+    "10 · Web app": "22:363",
+    "11 · Back office": "23:584",
+    "12 · Website": "24:736",
+    "Car logos": "140:15590"
+  }
+}

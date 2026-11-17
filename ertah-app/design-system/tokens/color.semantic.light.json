@@ -1,0 +1,412 @@
+{
+  "text": {
+    "primary": {
+      "$type": "color",
+      "$value": "{color.navy.900}",
+      "$extensions": {
+        "ertah.resolved": "#041043"
+      }
+    },
+    "secondary": {
+      "$type": "color",
+      "$value": "{color.navy.500}",
+      "$extensions": {
+        "ertah.resolved": "#636c9e"
+      }
+    },
+    "tertiary": {
+      "$type": "color",
+      "$value": "{color.navy.400}",
+      "$extensions": {
+        "ertah.resolved": "#8f96bd"
+      }
+    },
+    "inverse": {
+      "$type": "color",
+      "$value": "{color.base.white}",
+      "$extensions": {
+        "ertah.resolved": "#ffffff"
+      }
+    },
+    "brand": {
+      "$type": "color",
+      "$value": "{color.purple.500}",
+      "$extensions": {
+        "ertah.resolved": "#8c2dd9"
+      }
+    },
+    "link": {
+      "$type": "color",
+      "$value": "{color.blue.500}",
+      "$extensions": {
+        "ertah.resolved": "#1b68ff"
+      }
+    },
+    "success": {
+      "$type": "color",
+      "$value": "{color.green.500}",
+      "$extensions": {
+        "ertah.resolved": "#12b76a"
+      }
+    },
+    "warning": {
+      "$type": "color",
+      "$value": "{color.amber.600}",
+      "$extensions": {
+        "ertah.resolved": "#dc6803"
+      }
+    },
+    "danger": {
+      "$type": "color",
+      "$value": "{color.red.500}",
+      "$extensions": {
+        "ertah.resolved": "#f04438"
+      }
+    }
+  },
+  "bg": {
+    "canvas": {
+      "$type": "color",
+      "$value": "{color.navy.50}",
+      "$extensions": {
+        "ertah.resolved": "#f4f5f9"
+      }
+    },
+    "surface": {
+      "$type": "color",
+      "$value": "{color.base.white}",
+      "$extensions": {
+        "ertah.resolved": "#ffffff"
+      }
+    },
+    "subtle": {
+      "$type": "color",
+      "$value": "{color.navy.25}",
+      "$extensions": {
+        "ertah.resolved": "#f7f8fc"
+      }
+    },
+    "muted": {
+      "$type": "color",
+      "$value": "{color.navy.100}",
+      "$extensions": {
+        "ertah.resolved": "#eef0f6"
+      }
+    },
+    "inverse": {
+      "$type": "color",
+      "$value": "{color.navy.900}",
+      "$extensions": {
+        "ertah.resolved": "#041043"
+      }
+    },
+    "overlay": {
+      "$type": "color",
+      "$value": "{color.navy.900}",
+      "$extensions": {
+        "ertah.resolved": "#041043"
+      }
+    }
+  },
+  "border": {
+    "subtle": {
+      "$type": "color",
+      "$value": "{color.navy.100}",
+      "$extensions": {
+        "ertah.resolved": "#eef0f6"
+      }
+    },
+    "default": {
+      "$type": "color",
+      "$value": "{color.navy.200}",
+      "$extensions": {
+        "ertah.resolved": "#e1e4ee"
+      }
+    },
+    "strong": {
+      "$type": "color",
+      "$value": "{color.navy.300}",
+      "$extensions": {
+        "ertah.resolved": "#c9cde0"
+      }
+    },
+    "focus": {
+      "$type": "color",
+      "$value": "{color.blue.500}",
+      "$extensions": {
+        "ertah.resolved": "#1b68ff"
+      }
+    }
+  },
+  "brand": {
+    "primary": {
+      "$type": "color",
+      "$value": "{color.purple.500}",
+      "$extensions": {
+        "ertah.resolved": "#8c2dd9"
+      }
+    },
+    "primary-hover": {
+      "$type": "color",
+      "$value": "{color.purple.600}",
+      "$extensions": {
+        "ertah.resolved": "#7424c0"
+      }
+    },
+    "primary-subtle": {
+      "$type": "color",
+      "$value": "{color.purple.100}",
+      "$extensions": {
+        "ertah.resolved": "#f1e6fb"
+      }
+    },
+    "primary-border": {
+      "$type": "color",
+      "$value": "{color.purple.300}",
+      "$extensions": {
+        "ertah.resolved": "#c9a0ef"
+      }
+    }
+  },
+  "action": {
+    "primary": {
+      "$type": "color",
+      "$value": "{color.blue.500}",
+      "$extensions": {
+        "ertah.resolved": "#1b68ff"
+      }
+    },
+    "primary-hover": {
+      "$type": "color",
+      "$value": "{color.blue.600}",
+      "$extensions": {
+        "ertah.resolved": "#0f52d6"
+      }
+    },
+    "primary-subtle": {
+      "$type": "color",
+      "$value": "{color.blue.100}",
+      "$extensions": {
+        "ertah.resolved": "#e8f0ff"
+      }
+    },
+    "primary-border": {
+      "$type": "color",
+      "$value": "{color.blue.300}",
+      "$extensions": {
+        "ertah.resolved": "#8db3ff"
+      }
+    }
+  },
+  "status": {
+    "success": {
+      "$type": "color",
+      "$value": "{color.green.500}",
+      "$extensions": {
+        "ertah.resolved": "#12b76a"
+      }
+    },
+    "success-subtle": {
+      "$type": "color",
+      "$value": "{color.green.100}",
+      "$extensions": {
+        "ertah.resolved": "#e7f8f0"
+      }
+    },
+    "success-border": {
+      "$type": "color",
+      "$value": "{color.green.300}",
+      "$extensions": {
+        "ertah.resolved": "#86e0b5"
+      }
+    },
+    "warning": {
+      "$type": "color",
+      "$value": "{color.amber.500}",
+      "$extensions": {
+        "ertah.resolved": "#f79009"
+      }
+    },
+    "warning-subtle": {
+      "$type": "color",
+      "$value": "{color.amber.100}",
+      "$extensions": {
+        "ertah.resolved": "#fef4e6"
+      }
+    },
+    "warning-border": {
+      "$type": "color",
+      "$value": "{color.amber.300}",
+      "$extensions": {
+        "ertah.resolved": "#fccb7e"
+      }
+    },
+    "danger": {
+      "$type": "color",
+      "$value": "{color.red.500}",
+      "$extensions": {
+        "ertah.resolved": "#f04438"
+      }
+    },
+    "danger-hover": {
+      "$type": "color",
+      "$value": "{color.red.600}",
+      "$extensions": {
+        "ertah.resolved": "#d92d20"
+      }
+    },
+    "danger-subtle": {
+      "$type": "color",
+      "$value": "{color.red.100}",
+      "$extensions": {
+        "ertah.resolved": "#feeceb"
+      }
+    },
+    "danger-border": {
+      "$type": "color",
+      "$value": "{color.red.300}",
+      "$extensions": {
+        "ertah.resolved": "#f8a39c"
+      }
+    },
+    "info": {
+      "$type": "color",
+      "$value": "{color.blue.500}",
+      "$extensions": {
+        "ertah.resolved": "#1b68ff"
+      }
+    },
+    "info-subtle": {
+      "$type": "color",
+      "$value": "{color.blue.100}",
+      "$extensions": {
+        "ertah.resolved": "#e8f0ff"
+      }
+    },
+    "info-border": {
+      "$type": "color",
+      "$value": "{color.blue.300}",
+      "$extensions": {
+        "ertah.resolved": "#8db3ff"
+      }
+    },
+    "attention": {
+      "$type": "color",
+      "$value": "{color.orange.500}",
+      "$extensions": {
+        "ertah.resolved": "#f45232"
+      }
+    },
+    "attention-subtle": {
+      "$type": "color",
+      "$value": "{color.orange.100}",
+      "$extensions": {
+        "ertah.resolved": "#feeeea"
+      }
+    },
+    "attention-border": {
+      "$type": "color",
+      "$value": "{color.orange.300}",
+      "$extensions": {
+        "ertah.resolved": "#f9a893"
+      }
+    }
+  },
+  "icon": {
+    "default": {
+      "$type": "color",
+      "$value": "{color.navy.400}",
+      "$extensions": {
+        "ertah.resolved": "#8f96bd"
+      }
+    },
+    "secondary": {
+      "$type": "color",
+      "$value": "{color.navy.500}",
+      "$extensions": {
+        "ertah.resolved": "#636c9e"
+      }
+    },
+    "strong": {
+      "$type": "color",
+      "$value": "{color.navy.900}",
+      "$extensions": {
+        "ertah.resolved": "#041043"
+      }
+    },
+    "inverse": {
+      "$type": "color",
+      "$value": "{color.base.white}",
+      "$extensions": {
+        "ertah.resolved": "#ffffff"
+      }
+    }
+  },
+  "service": {
+    "ifp": {
+      "$type": "color",
+      "$value": "{color.purple.500}",
+      "$extensions": {
+        "ertah.resolved": "#8c2dd9"
+      }
+    },
+    "einvoice": {
+      "$type": "color",
+      "$value": "{color.blue.500}",
+      "$extensions": {
+        "ertah.resolved": "#1b68ff"
+      }
+    },
+    "payments": {
+      "$type": "color",
+      "$value": "{color.blue.500}",
+      "$extensions": {
+        "ertah.resolved": "#1b68ff"
+      }
+    },
+    "jobcard": {
+      "$type": "color",
+      "$value": "{color.blue.500}",
+      "$extensions": {
+        "ertah.resolved": "#1b68ff"
+      }
+    },
+    "mojaz": {
+      "$type": "color",
+      "$value": "{color.crimson.500}",
+      "$extensions": {
+        "ertah.resolved": "#be1e2d"
+      }
+    },
+    "tabby": {
+      "$type": "color",
+      "$value": "{color.green.500}",
+      "$extensions": {
+        "ertah.resolved": "#12b76a"
+      }
+    }
+  },
+  "accent": {
+    "cyan": {
+      "$type": "color",
+      "$value": "{color.cyan.500}",
+      "$extensions": {
+        "ertah.resolved": "#00b8ff"
+      }
+    },
+    "cyan-subtle": {
+      "$type": "color",
+      "$value": "{color.cyan.100}",
+      "$extensions": {
+        "ertah.resolved": "#e6f8ff"
+      }
+    },
+    "cyan-border": {
+      "$type": "color",
+      "$value": "{color.cyan.300}",
+      "$extensions": {
+        "ertah.resolved": "#7fdbff"
+      }
+    }
+  }
+}

@@ -1,0 +1,107 @@
+// GENERATED from Figma "Ertah app 27" variables — do not edit by hand.
+// Source: https://www.figma.com/design/oIMhGYwGltjjk0Kz6p8ZnL/Ertah-app-27
+// Regenerate: see design-system/README.md
+
+import 'package:flutter/painting.dart';
+
+/// Primitive palette (Figma: 1 · Foundations › Primitive palette).
+/// Use [ErtahColors] (semantic) in UI code; primitives are for building themes.
+abstract final class ErtahPrimitives {
+  static const navy25 = Color(0xFFF7F8FC);
+  static const navy50 = Color(0xFFF4F5F9);
+  static const navy100 = Color(0xFFEEF0F6);
+  static const navy200 = Color(0xFFE1E4EE);
+  static const navy300 = Color(0xFFC9CDE0);
+  static const navy400 = Color(0xFF8F96BD);
+  static const navy500 = Color(0xFF636C9E);
+  static const navy600 = Color(0xFF3A4577);
+  static const navy700 = Color(0xFF1D2A5E);
+  static const navy800 = Color(0xFF121D52);
+  static const navy900 = Color(0xFF041043);
+  static const blue50 = Color(0xFFF3F7FF);
+  static const blue100 = Color(0xFFE8F0FF);
+  static const blue300 = Color(0xFF8DB3FF);
+  static const blue500 = Color(0xFF1B68FF);
+  static const blue600 = Color(0xFF0F52D6);
+  static const blue700 = Color(0xFF0B45B8);
+  static const blue900 = Color(0xFF0F2659);
+  static const purple50 = Color(0xFFF9F4FE);
+  static const purple100 = Color(0xFFF1E6FB);
+  static const purple300 = Color(0xFFC9A0EF);
+  static const purple500 = Color(0xFF8C2DD9);
+  static const purple600 = Color(0xFF7424C0);
+  static const purple700 = Color(0xFF5A1BB0);
+  static const purple900 = Color(0xFF2B1650);
+  static const cyan100 = Color(0xFFE6F8FF);
+  static const cyan300 = Color(0xFF7FDBFF);
+  static const cyan500 = Color(0xFF00B8FF);
+  static const cyan600 = Color(0xFF0096D1);
+  static const cyan900 = Color(0xFF06304A);
+  static const green50 = Color(0xFFF3FCF7);
+  static const green100 = Color(0xFFE7F8F0);
+  static const green300 = Color(0xFF86E0B5);
+  static const green500 = Color(0xFF12B76A);
+  static const green600 = Color(0xFF0E9F5E);
+  static const green900 = Color(0xFF0C3326);
+  static const amber100 = Color(0xFFFEF4E6);
+  static const amber300 = Color(0xFFFCCB7E);
+  static const amber500 = Color(0xFFF79009);
+  static const amber600 = Color(0xFFDC6803);
+  static const amber900 = Color(0xFF3A2809);
+  static const orange100 = Color(0xFFFEEEEA);
+  static const orange300 = Color(0xFFF9A893);
+  static const orange500 = Color(0xFFF45232);
+  static const orange600 = Color(0xFFDB3F1F);
+  static const orange900 = Color(0xFF3D1B12);
+  static const red50 = Color(0xFFFFF5F5);
+  static const red100 = Color(0xFFFEECEB);
+  static const red300 = Color(0xFFF8A39C);
+  static const red500 = Color(0xFFF04438);
+  static const red600 = Color(0xFFD92D20);
+  static const red900 = Color(0xFF40161A);
+  static const crimson100 = Color(0xFFF9E8EA);
+  static const crimson500 = Color(0xFFBE1E2D);
+  static const crimson900 = Color(0xFF3B1218);
+  static const baseWhite = Color(0xFFFFFFFF);
+  static const baseBlack = Color(0xFF000000);
+  static const dark0 = Color(0xFF070B22);
+  static const dark50 = Color(0xFF0C1231);
+  static const dark100 = Color(0xFF121A3F);
+  static const dark200 = Color(0xFF1A2450);
+  static const dark300 = Color(0xFF263163);
+  static const dark400 = Color(0xFF3A4680);
+  static const extendedLavender100 = Color(0xFFE9E8EE);
+  static const extendedSlate100 = Color(0xFFF1F5F9);
+  static const extendedSky200 = Color(0xFFB2D6FF);
+  static const extendedLavender200 = Color(0xFFD2D0DD);
+  static const extendedSlate200 = Color(0xFFE2E8F0);
+  static const extendedLavender300 = Color(0xFFBCB9CC);
+  static const extendedGray300 = Color(0xFFD9D9D9);
+  static const extendedGreen400 = Color(0xFF51CC56);
+  static const extendedSky400 = Color(0xFF44C8F5);
+  static const extendedGray400 = Color(0xFF8C8E96);
+  static const extendedLavender400 = Color(0xFFA5A2BB);
+  static const extendedError400 = Color(0xFFFF5555);
+  static const extendedStaticBlue400 = Color(0xFF5B93FF);
+  static const extendedOcean500 = Color(0xFF2A6EBB);
+  static const extendedPlum500 = Color(0xFF722EA5);
+  static const extendedViolet500 = Color(0xFF952D98);
+  static const extendedGray700 = Color(0xFF444444);
+  static const extendedIndigo900 = Color(0xFF1E1656);
+  static const extendedInk900 = Color(0xFF1E212E);
+  static const extendedCharcoal900 = Color(0xFF27292D);
+  static const extendedInk950 = Color(0xFF030209);
+  static const illustrationSky200 = Color(0xFFB4DFF7);
+  static const illustrationMint300 = Color(0xFF5AFEAE);
+  static const illustrationTeal400 = Color(0xFF43BCBC);
+  static const illustrationYellow400 = Color(0xFFF7CE45);
+  static const illustrationViolet400 = Color(0xFFAB58F4);
+  static const illustrationNavy500 = Color(0xFF3A6292);
+  static const illustrationBlue500 = Color(0xFF2E75BF);
+  static const illustrationCyan500 = Color(0xFF00BCD4);
+  static const illustrationOrange500 = Color(0xFFFF5E00);
+  static const illustrationCoral500 = Color(0xFFFF5D36);
+  static const illustrationNavy700 = Color(0xFF114684);
+  static const illustrationRed700 = Color(0xFFBD3C35);
+  static const illustrationNavy900 = Color(0xFF0C3360);
+}
