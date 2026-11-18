@@ -1,6 +1,6 @@
 name: ertah_design_system
 description: Ertah design tokens and Flutter theme, generated from the Figma file "Ertah app 27".
-version: 0.1.0
+version: 0.3.0
 publish_to: none
 
 environment:
@@ -12,14 +12,22 @@ dependencies:
     sdk: flutter
 
 flutter:
-  # DIN Next LT Arabic is a licensed font and is NOT included in this repo.
-  # Once the licensed files are added to fonts/, uncomment:
-  # fonts:
-  #   - family: DIN Next LT Arabic
-  #     fonts:
-  #       - asset: fonts/DINNextLTArabic-Regular.ttf
-  #         weight: 400
-  #       - asset: fonts/DINNextLTArabic-Medium.ttf
-  #         weight: 500
-  #       - asset: fonts/DINNextLTArabic-Bold.ttf
-  #         weight: 700
+  # Both families are open source (SIL Open Font License 1.1, see fonts/OFL-*.txt).
+  # Figma Typography collection: mode "Arabic" = IBM Plex Sans Arabic, mode "English" = Inter.
+  fonts:
+    - family: IBM Plex Sans Arabic
+      fonts:
+        - asset: fonts/IBMPlexSansArabic-Regular.ttf
+          weight: 400
+        - asset: fonts/IBMPlexSansArabic-Medium.ttf
+          weight: 500
+        - asset: fonts/IBMPlexSansArabic-Bold.ttf
+          weight: 700
+    - family: Inter
+      fonts:
+        - asset: fonts/Inter-Regular.ttf
+          weight: 400
+        - asset: fonts/Inter-Medium.ttf
+          weight: 500
+        - asset: fonts/Inter-Bold.ttf
+          weight: 700

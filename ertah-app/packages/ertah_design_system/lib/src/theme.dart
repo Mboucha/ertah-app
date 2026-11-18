@@ -11,11 +11,18 @@ import 'tokens/typography.dart';
 /// Builds Material [ThemeData] from Ertah tokens. Ertah-specific roles that
 /// Material has no slot for (service colors, status subtle/border, etc.)
 /// live in the [ErtahColors] extension.
+///
+/// [locale] picks the font (Figma Typography modes): `ar` → IBM Plex Sans Arabic,
+/// `en` → Inter. Text direction (RTL/LTR) is not set here: MaterialApp derives
+/// it from its `locale` once `flutter_localizations` delegates are registered
+/// (see design-system/README.md › English / LTR).
 abstract final class ErtahTheme {
-  static ThemeData light() => _build(Brightness.light, ErtahColors.light);
-  static ThemeData dark() => _build(Brightness.dark, ErtahColors.dark);
+  static ThemeData light({Locale locale = const Locale('ar')}) =>
+      _build(Brightness.light, ErtahColors.light, locale);
+  static ThemeData dark({Locale locale = const Locale('ar')}) =>
+      _build(Brightness.dark, ErtahColors.dark, locale);
 
-  static ThemeData _build(Brightness b, ErtahColors c) {
+  static ThemeData _build(Brightness b, ErtahColors c, Locale locale) {
     final scheme = ColorScheme(
       brightness: b,
       primary: c.actionPrimary,
@@ -47,7 +54,8 @@ abstract final class ErtahTheme {
       shadow: c.bgOverlay,
     );
 
-    TextStyle t(TextStyle s, Color col) => s.copyWith(color: col);
+    TextStyle t(TextStyle s, Color col) =>
+        ErtahTypography.forLocale(s, locale).copyWith(color: col);
     final text = TextTheme(
       displayLarge: t(ErtahTypography.display, c.textPrimary),
       headlineLarge: t(ErtahTypography.h1, c.textPrimary),
@@ -68,7 +76,7 @@ abstract final class ErtahTheme {
       useMaterial3: true,
       brightness: b,
       colorScheme: scheme,
-      fontFamily: ErtahTypography.fontFamily,
+      fontFamily: ErtahTypography.fontFamilyFor(locale),
       textTheme: text,
       scaffoldBackgroundColor: c.bgCanvas,
       dividerColor: c.borderSubtle,
@@ -93,7 +101,7 @@ abstract final class ErtahTheme {
           borderRadius: BorderRadius.circular(ErtahRadius.lg),
           borderSide: BorderSide(color: c.statusDanger),
         ),
-        hintStyle: ErtahTypography.body14Regular.copyWith(color: c.textTertiary),
+        hintStyle: t(ErtahTypography.body14Regular, c.textTertiary),
       ),
     );
   }
