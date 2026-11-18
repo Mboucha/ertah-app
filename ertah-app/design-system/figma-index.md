@@ -97,7 +97,7 @@ Every design-system section and app flow in **Ertah app 27**, with direct links.
 | [Promo banner · Progress](https://www.figma.com/design/oIMhGYwGltjjk0Kz6p8ZnL/Ertah-app-27?node-id=19-486) | `19:486` |
 | [Bottom sheet](https://www.figma.com/design/oIMhGYwGltjjk0Kz6p8ZnL/Ertah-app-27?node-id=19-490) | `19:490` |
 
-### [10 · Web app](https://www.figma.com/design/oIMhGYwGltjjk0Kz6p8ZnL/Ertah-app-27?node-id=22-363)
+### [10 · Web app (desktop & mobile web)](https://www.figma.com/design/oIMhGYwGltjjk0Kz6p8ZnL/Ertah-app-27?node-id=22-363)
 
 | Frame | Node |
 |---|---|
@@ -119,6 +119,10 @@ Every design-system section and app flow in **Ertah app 27**, with direct links.
 | [Navbar & hero](https://www.figma.com/design/oIMhGYwGltjjk0Kz6p8ZnL/Ertah-app-27?node-id=24-1043) | `24:1043` |
 | [Content blocks](https://www.figma.com/design/oIMhGYwGltjjk0Kz6p8ZnL/Ertah-app-27?node-id=24-1046) | `24:1046` |
 | [Footer](https://www.figma.com/design/oIMhGYwGltjjk0Kz6p8ZnL/Ertah-app-27?node-id=24-1052) | `24:1052` |
+
+### [13 · English (LTR)](https://www.figma.com/design/oIMhGYwGltjjk0Kz6p8ZnL/Ertah-app-27?node-id=192-1716)
+
+Font pairing (IBM Plex Sans Arabic / Inter), English type ramp, how to switch a frame to English, mirror-vs-keep rules, and the list of component sets with a `Direction = RTL | LTR` property (69 sets).
 
 ### [Car logos](https://www.figma.com/design/oIMhGYwGltjjk0Kz6p8ZnL/Ertah-app-27?node-id=140-15590)
 
@@ -154,3 +158,18 @@ Every design-system section and app flow in **Ertah app 27**, with direct links.
 | [Parking · تأجير موقف](https://www.figma.com/design/oIMhGYwGltjjk0Kz6p8ZnL/Ertah-app-27?node-id=81-7922) | `81:7922` |
 | [Customer reminder · إرسال رسالة](https://www.figma.com/design/oIMhGYwGltjjk0Kz6p8ZnL/Ertah-app-27?node-id=82-8374) | `82:8374` |
 | [Customer reminder · السجل والإحصائيات](https://www.figma.com/design/oIMhGYwGltjjk0Kz6p8ZnL/Ertah-app-27?node-id=83-8860) | `83:8860` |
+| [Instant Fix-permit. Check-in — تقرير الدخول](https://www.figma.com/design/oIMhGYwGltjjk0Kz6p8ZnL/Ertah-app-27?node-id=162-14053) | `162:14053` |
+| [Instant Fix-permit. Check-out — إتمام الإصلاح وتقرير الصيانة](https://www.figma.com/design/oIMhGYwGltjjk0Kz6p8ZnL/Ertah-app-27?node-id=176-19426) | `176:19426` |
+| [Job Card · Check-in/out reports · تقارير الدخول والخروج](https://www.figma.com/design/oIMhGYwGltjjk0Kz6p8ZnL/Ertah-app-27?node-id=164-15458) | `164:15458` |
+| [E-Invoicing · B2B customer (Entity)](https://www.figma.com/design/oIMhGYwGltjjk0Kz6p8ZnL/Ertah-app-27?node-id=180-15819) | `180:15819` |
+| [E-Invoicing · Credit note](https://www.figma.com/design/oIMhGYwGltjjk0Kz6p8ZnL/Ertah-app-27?node-id=181-16208) | `181:16208` |
+| [E-Invoicing · Onboarding update (phased)](https://www.figma.com/design/oIMhGYwGltjjk0Kz6p8ZnL/Ertah-app-27?node-id=182-16614) | `182:16614` |
+| [E-Invoicing · Link payment request](https://www.figma.com/design/oIMhGYwGltjjk0Kz6p8ZnL/Ertah-app-27?node-id=183-17080) | `183:17080` |
+
+## [Mobile App · English page](https://www.figma.com/design/oIMhGYwGltjjk0Kz6p8ZnL/Ertah-app-27?node-id=189-17631) (LTR)
+
+35 sections named `EN · …`, one per Arabic section, in flow order. The section-by-section pairing with the Arabic page is in [`screens-index.md`](screens-index.md).
+
+## FigJam
+
+[Ertah App · Service Flows](https://www.figma.com/board/qVbVkah35JxWMxOtSWEJj4/Ertah-App-%C2%B7-Service-Flows): 15 flow sections, indexed in [`flows.md`](flows.md).

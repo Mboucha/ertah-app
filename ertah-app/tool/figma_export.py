@@ -4,7 +4,9 @@
 Usage:
     export FIGMA_TOKEN=figd_xxx          # Figma > Settings > Security > Personal access tokens (file read scope)
     python3 tool/figma_export.py icons   # SVG icons + car logos -> packages/ertah_design_system/assets/
-    python3 tool/figma_export.py screens # PNG @2x of every screen     -> design-system/screens/
+    python3 tool/figma_export.py screens    # PNG @2x of every Arabic (RTL) screen  -> design-system/screens/
+    python3 tool/figma_export.py screens-en # PNG @2x of every English (LTR) screen -> design-system/screens-en/
+    python3 tool/figma_export.py flows      # PNG of each FigJam service-flow section -> design-system/flows/
     python3 tool/figma_export.py all
 
 Node IDs come from design-system/figma-manifest.json. Standard library only.
@@ -33,8 +35,8 @@ def api(path, **params):
     sys.exit("Figma API rate limit: try again later.")
 
 
-def children(node_id, depth=1):
-    doc = api(f"/files/{KEY}/nodes", ids=node_id, depth=depth)["nodes"][node_id]["document"]
+def children(node_id, depth=1, key=KEY):
+    doc = api(f"/files/{key}/nodes", ids=node_id, depth=depth)["nodes"][node_id]["document"]
     return doc.get("children", [])
 
 
@@ -43,13 +45,13 @@ def slug(name):
     return s or "unnamed"
 
 
-def export(nodes, fmt, out_dir, scale=1):
+def export(nodes, fmt, out_dir, scale=1, key=KEY):
     """nodes: list of (id, filename-stem). Batches render requests."""
     os.makedirs(out_dir, exist_ok=True)
     seen = {}
     for i in range(0, len(nodes), 50):
         batch = nodes[i:i + 50]
-        urls = api(f"/images/{KEY}", ids=",".join(n for n, _ in batch), format=fmt, scale=scale)["images"]
+        urls = api(f"/images/{key}", ids=",".join(n for n, _ in batch), format=fmt, scale=scale)["images"]
         for nid, stem in batch:
             url = urls.get(nid)
             if not url:
@@ -86,12 +88,21 @@ def do_icons():
         export(icon_nodes(fid), "svg", os.path.join(base, "logos", group))
 
 
-def do_screens():
-    base = os.path.join(ROOT, "design-system", "screens")
-    for flow, sid in MANIFEST["screenSections"].items():
+def do_screens(manifest_key="screenSections", folder="screens"):
+    base = os.path.join(ROOT, "design-system", folder)
+    for flow, sid in MANIFEST[manifest_key].items():
         frames = [(c["id"], slug(c["name"])) for c in children(sid) if c["type"] == "FRAME"]
-        print(f"screens/{slug(flow)} ({len(frames)})")
+        print(f"{folder}/{slug(flow)} ({len(frames)})")
         export(frames, "png", os.path.join(base, slug(flow)), scale=2)
+
+
+def do_flows():
+    """One PNG per section of each FigJam board listed under figjamBoards."""
+    base = os.path.join(ROOT, "design-system", "flows")
+    for board, info in MANIFEST.get("figjamBoards", {}).items():
+        nodes = [(nid, slug(name)) for name, nid in info["sections"].items()]
+        print(f"flows/{board} ({len(nodes)})")
+        export(nodes, "png", os.path.join(base, board), scale=1, key=info["fileKey"])
 
 
 if __name__ == "__main__":
@@ -100,3 +111,9 @@ if __name__ == "__main__":
         do_icons()
     if what in ("screens", "all"):
         do_screens()
+    if what in ("screens-en", "all"):
+        do_screens("englishScreenSections", "screens-en")
+    if what in ("flows", "all"):
+        do_flows()
+    if what not in ("icons", "screens", "screens-en", "flows", "all"):
+        sys.exit(f"Unknown command {what!r}: use icons, screens, screens-en, flows or all.")

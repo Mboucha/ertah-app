@@ -4,9 +4,32 @@
       "primary": {
         "$type": "fontFamily",
         "$value": [
-          "DIN Next LT Arabic",
+          "IBM Plex Sans Arabic",
           "sans-serif"
-        ]
+        ],
+        "$description": "Figma variable font-family/primary. Mode Arabic (default) = IBM Plex Sans Arabic; mode English = Inter.",
+        "$extensions": {
+          "ertah.modes": {
+            "Arabic": [
+              "IBM Plex Sans Arabic",
+              "sans-serif"
+            ],
+            "English": [
+              "Inter",
+              "IBM Plex Sans Arabic",
+              "sans-serif"
+            ]
+          }
+        }
+      },
+      "english": {
+        "$type": "fontFamily",
+        "$value": [
+          "Inter",
+          "IBM Plex Sans Arabic",
+          "sans-serif"
+        ],
+        "$description": "Figma variable font-family/primary, mode English. IBM Plex Sans Arabic is the fallback for Arabic strings kept on English screens."
       }
     },
     "weight": {
